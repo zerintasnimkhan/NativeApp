@@ -1,13 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import BottomNavigator from '../bottom/BottomNavigator'
 
-const Home = () => {
+const Wallet = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home</Text>
+      <Text>Wallet</Text>
     </View>
   )
 }
 
-export default Home
+export default Wallet

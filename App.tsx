@@ -1,10 +1,30 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import AppNavigator from './src/AppNavigator'
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+
+import Home from './src/screens/Home'
+import BottomNavigator from './src/bottom/BottomNavigator'
+import Search from './src/screens/Search'
+import Favorites from './src/screens/Favorites'
+import Wallet from './src/screens/Wallet'
+import Profile from './src/screens/Profile'
+
+
+const Tab = createBottomTabNavigator();
 const App = () => {
   return (
-    <AppNavigator/>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Search" component={Search} />
+        <Tab.Screen name="Favorites" component={Favorites} />
+        <Tab.Screen name="Wallet" component={Wallet} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
+    </NavigationContainer>
+    
+
   )
 }
 
