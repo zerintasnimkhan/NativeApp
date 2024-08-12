@@ -1,6 +1,13 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, FlatList, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import Details from './Details'; 
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from "../App"
+
+type SearchScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Search'>;
 
 const products = [
   { id: '1', name: 'Sony Wireless Head...', price: '$58.00', image: 'https://www.gadstyle.com/wp-content/uploads/2020/12/sony-wh-ch510-wireless-headphones-1.jpg' },
@@ -10,6 +17,7 @@ const products = [
 ];
 
 const SearchScreen = () => {
+  const navigation = useNavigation<SearchScreenNavigationProp>();
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -28,7 +36,8 @@ const SearchScreen = () => {
         numColumns={2} 
         columnWrapperStyle={styles.row} 
         renderItem={({ item }) => (
-          <Card style={styles.productCard}>
+          <Card style={styles.productCard}
+          onPress={() => navigation.navigate('Details', { product: item })} >
             <Card.Cover source={{ uri: item.image }} style={styles.productImage} />
             <Card.Content>
               <Title style={styles.productName}>{item.name}</Title>
