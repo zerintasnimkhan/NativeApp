@@ -35,7 +35,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Tab.Screen name="Search" component={SearchStackNavigator} options={{ headerShown: false }} />
         <Tab.Screen name="Favorites" component={Favorites} />
         <Tab.Screen name="Wallet" component={Wallet} />
