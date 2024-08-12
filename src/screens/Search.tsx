@@ -1,40 +1,6 @@
-// import { View, Text, StatusBar, ScrollView, TouchableOpacity } from 'react-native'
-// import React from 'react'
-// import { COLORS } from '../database/constants'
-
-
-// const Search = () => {
-//   return (
-//     <View style={{
-//       width: '100%',
-//       height: '100%',
-//       backgroundColor: COLORS.white,
-//      }}>
-//       <StatusBar barStyle="default" />
-//       <ScrollView showsVerticalScrollIndicator={false}>
-//     <View
-//     style={{
-//       width: '100%',
-//       flexDirection: 'row',
-//       justifyContent: 'space-between',
-//       padding: 16,
-//     }}>
-//     <TouchableOpacity>
-      
-      
-//       </TouchableOpacity>
-//     </View>
-   
-//       </ScrollView>
-//     </View>
-//   )
-// }
-
-// export default Search
-
-
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, FlatList, Text } from 'react-native';
+import { Card, Title, Paragraph, Button } from 'react-native-paper';
 
 const products = [
   { id: '1', name: 'Sony Wireless Head...', price: '$58.00', image: 'https://www.gadstyle.com/wp-content/uploads/2020/12/sony-wh-ch510-wireless-headphones-1.jpg' },
@@ -51,24 +17,26 @@ const SearchScreen = () => {
       </View>
       <Text style={styles.resultCount}>52,630 products found in Headphones category</Text>
       <View style={styles.filters}>
-        <TouchableOpacity style={styles.filterButton}><Text>Price</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}><Text>Brand</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}><Text>Color</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.detailsButton}><Text>Details</Text></TouchableOpacity>
+        <Button mode="outlined" style={styles.filterButton}>Price</Button>
+        <Button mode="outlined" style={styles.filterButton}>Brand</Button>
+        <Button mode="outlined" style={styles.filterButton}>Color</Button>
+        <Button mode="contained" style={styles.detailsButton}>Details</Button>
       </View>
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
+        numColumns={2} 
+        columnWrapperStyle={styles.row} 
         renderItem={({ item }) => (
-          <View style={styles.productCard}>
-            <Image source={{ uri: item.image }} style={styles.productImage} />
-            <Text style={styles.productName}>{item.name}</Text>
-            <Text style={styles.productPrice}>{item.price}</Text>
-          </View>
+          <Card style={styles.productCard}>
+            <Card.Cover source={{ uri: item.image }} style={styles.productImage} />
+            <Card.Content>
+              <Title style={styles.productName}>{item.name}</Title>
+              <Paragraph style={styles.productPrice}>{item.price}</Paragraph>
+            </Card.Content>
+          </Card>
         )}
       />
-      <View style={styles.bottomNav}>
-      </View>
     </View>
   );
 };
@@ -77,67 +45,60 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 20,
+    paddingTop: 30,
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f1f1f1',
-    borderRadius: 5,
+    borderRadius: 14,
     padding: 10,
     marginBottom: 10,
   },
   searchInput: {
     marginLeft: 10,
     flex: 1,
+    height: 36,
+    borderRadius: 40,
+    backgroundColor: '#f1f1f1',
   },
   resultCount: {
-    marginBottom: 10,
+    marginBottom: 12,
     fontSize: 16,
   },
   filters: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 18,
   },
   filterButton: {
-    backgroundColor: '#e1e1e1',
-    padding: 10,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   detailsButton: {
-    backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
-    color: '#fff',
+    borderRadius: 20,
+  },
+  row: {
+    justifyContent: 'space-between', 
+    marginBottom: 15,
   },
   productCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f1f1',
+    width: '48%',
+    borderRadius: 14, 
+    overflow: 'hidden', 
   },
   productImage: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
+    height: 160,
   },
   productName: {
-    flex: 1,
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
   productPrice: {
-    fontWeight: 'bold',
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#f1f1f1',
-  },
-  activeIcon: {
-    color: '#007bff',
+    fontSize: 14,
+    color: '#333',
+    fontWeight: 'normal',
   },
 });
 
