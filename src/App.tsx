@@ -26,7 +26,10 @@ const SearchStackNavigator = () => {
         component={SearchScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="Details" 
+      component={DetailsScreen}
+      options={{ headerShown: false }}
+       />
     </Stack.Navigator>
   );
 };
@@ -34,7 +37,16 @@ const SearchStackNavigator = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          position: 'absolute',
+          elevation: 0,
+          backgroundColor: '#ffffff',
+          height: 80,
+          paddingBottom: 20,
+        }   
+      }}>
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Tab.Screen name="Search" component={SearchStackNavigator} options={{ headerShown: false }} />
         <Tab.Screen name="Favorites" component={Favorites} />
