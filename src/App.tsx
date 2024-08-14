@@ -45,8 +45,9 @@ const App = () => {
           position: 'absolute',
           elevation: 0,
           backgroundColor: '#ffffff',
-          height: 80,
-          paddingBottom: 20,
+          height: 82,
+          paddingBottom: 12,
+          shadowColor: '#D3D3D3'
         }   
       }}>
         <Tab.Screen name="Home" component={Home} 
@@ -58,15 +59,15 @@ const App = () => {
                 source={require('../src/database/icons/home.png')}
                 resizeMode="contain"
                 style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#0043F9' : '#748c94',
+                  width: 28,
+                  height: 28,
+                  tintColor: focused ? '#3C6EEF' : '#818589',
                 }}
               />
               <Text
                 style={{
-                  color: focused ? '#0043F9' : '#748c94',
-                  fontSize: 10,
+                  color: focused ? '#3C6EEF' : '#A9A9A9',
+                  fontSize: 12,
                   fontWeight: 800,
                   marginTop: 6
                 }}
@@ -87,15 +88,15 @@ const App = () => {
                 source={require('../src/database/icons/magnifying-glass.png')}
                 resizeMode="contain"
                 style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#0043F9' : '#748c94',
+                  width: 28,
+                  height: 28,
+                  tintColor: focused ? '#3C6EEF' : '#818589',
                 }}
               />
               <Text
                 style={{
-                  color: focused ? '#0043F9' : '#748c94',
-                  fontSize: 10,
+                  color: focused ? '#3C6EEF' : '#A9A9A9',
+                  fontSize: 12,
                   fontWeight: 800,
                   marginTop: 6
                 }}
@@ -114,15 +115,15 @@ const App = () => {
                 source={require('../src/database/icons/heart.png')}
                 resizeMode="contain"
                 style={{
-                  width: 20,
-                  height: 20,
-                  tintColor: focused ? '#0043F9' : '#748c94',
+                  width: 25,
+                  height: 28,
+                  tintColor: focused ? '#3C6EEF' : '#818589',
                 }}
               />
               <Text
                 style={{
-                  color: focused ? '#0043F9' : '#748c94',
-                  fontSize: 10,
+                  color: focused ? '#3C6EEF' : '#A9A9A9',
+                  fontSize: 12,
                   fontWeight: 800,
                   marginTop: 6
                 }}
@@ -141,15 +142,15 @@ const App = () => {
                 source={require('../src/database/icons/wallet.png')}
                 resizeMode="contain"
                 style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#0043F9' : '#748c94',
+                  width: 28,
+                  height: 28,
+                  tintColor: focused ? '#3C6EEF' : '#818589',
                 }}
               />
               <Text
                 style={{
-                  color: focused ? '#0043F9' : '#748c94',
-                  fontSize: 10,
+                  color: focused ? '#3C6EEF' : '#A9A9A9',
+                  fontSize: 12,
                   fontWeight: 800,
                   marginTop: 6
                 }}
@@ -168,15 +169,15 @@ const App = () => {
                 source={require('../src/database/icons/person.png')}
                 resizeMode="contain"
                 style={{
-                  width: 28,
-                  height: 25,
-                  tintColor: focused ? '#0043F9' : '#748c94',
+                  width: 34,
+                  height: 28,
+                  tintColor: focused ? '#3C6EEF' : '#748c94',
                 }}
               />
               <Text
                 style={{
-                  color: focused ? '#0043F9' : '#748c94',
-                  fontSize: 10,
+                  color: focused ? '#3C6EEF' : '#A9A9A9',
+                  fontSize: 12,
                   fontWeight: 800,
                   marginTop: 6
                 }}
