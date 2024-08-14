@@ -6,8 +6,23 @@ const Home = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.deliveryContainer}>
-        <Text>Delivery: 96744, Puulena St 74, Kaneohe, HI</Text>
-        <IconButton icon="bell-outline" size={20} onPress={() => {}} />
+      <Image
+                source={require('../database/icons/gps.png')}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 20,
+                }}
+              />
+        <Text style={styles.locationText}>Delivery: 96744, Puulena St 74, Kaneohe, HI</Text>
+        <Image
+                source={require('../database/icons/alarm-bell.png')}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
       </View>
 
       <Card style={styles.featuredCard}>
@@ -30,11 +45,11 @@ const Home = () => {
         <Button onPress={() => {}}>See all</Button>
       </View>
       <View style={styles.categoriesContainer}>
-        {renderCategory('Beauty', 'face-outline')}
-        {renderCategory('Clothes', 'tshirt-crew-outline')}
-        {renderCategory('Books', 'book-outline')}
-        {renderCategory('Home', 'home-outline')}
-        {renderCategory('Sport', 'basketball')}
+        {renderCategory('Beauty', require('../database/icons/lotion.png'))}
+        {renderCategory('Clothes', require('../database/icons/ladies-cloth.png'))}
+        {renderCategory('Books', require('../database/icons/open-book.png'))}
+        {renderCategory('Home', require('../database/icons/flower.png'))}
+        {renderCategory('Sport',  require('../database/icons/basket-ball.png'))}
       </View>
      
       <View style={styles.productsContainer}>
@@ -47,27 +62,45 @@ const Home = () => {
 
 const renderCategory = (title: string, icon: string) => (
   <View style={styles.category}>
-    <Avatar.Icon size={48} icon={icon} />
+    <Avatar.Icon size={64} icon={icon} 
+    style={{
+      backgroundColor: '#FFFFFF', 
+      borderColor: '#F8F8F7', 
+      borderWidth: 2,
+      padding: 30
+      
+    }}
+    color="#5A5A5A"
+    />
     <Text>{title}</Text>
   </View>
 );
 
 const renderProduct = (name: string, price: string, imageUrl: string) => (
-  <Card style={styles.productCard}>
-    <Card.Cover source={{ uri: imageUrl }} />
-    <Card.Content>
-      <Text>{name}</Text>
-      <Text variant="bodyLarge" style={styles.productPrice}>{price}</Text>
-    </Card.Content>
-  </Card>
+  <View style={styles.productContainer}>
+    <ImageBackground
+      source={{ uri: imageUrl }}
+      style={styles.productImage}
+      imageStyle={styles.imageBackground}
+    >
+    </ImageBackground>
+    <View style={styles.productInfo}>
+      <Text style={styles.productName}>{name}</Text>
+      <Text style={styles.productPrice}>{price}</Text>
+    </View>
+  </View>
 );
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 16,
+    backgroundColor: '#FFFFFF',
+    padding: 20,
   },
+  locationText: {
+     marginLeft: 0,
+     paddingLeft: 0,
+  }, 
   deliveryContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -100,11 +133,12 @@ const styles = StyleSheet.create({
   },
   cardButton: {
     marginTop: 40,
-    marginRight: 238,
+    marginRight: 230,
     marginBottom: 12,
     borderColor: '#0043F9',
     backgroundColor: '#0043F9',
     borderRadius: 10,
+    padding: 0
     
   },
   categoriesHeader: {
@@ -117,19 +151,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
+  
   },
   category: {
     alignItems: 'center',
+    backgroundColor: 'white',
+     borderColor: 'grey'
   },
   productsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  productCard: {
+  productContainer: {
     width: '48%',
+    marginBottom: 16,
+  },
+  productImage: {
+    width: '100%',
+    height: 200,  
+    borderWidth: 1,
+    borderColor: '#E0E0E0',  
+    borderRadius: 8,
+    overflow: 'hidden',  
+  },
+
+  imageBackground: {
+    borderRadius: 8,
+    backgroundColor: '#E0E0E0',  
+  },
+  productInfo: {
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  productName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
   },
   productPrice: {
-    fontWeight: 'bold',
+    fontSize: 14,
+    color: '#FF5722',  
+    marginTop: 4,
   },
 });
 

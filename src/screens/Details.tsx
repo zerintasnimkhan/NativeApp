@@ -22,9 +22,9 @@ const DetailsScreen = () => {
           <Text style={styles.price}>$265.90</Text>
           <Text>Delivery: 2-5 days</Text>
         </Card.Content>
-        <Card.Actions>
+        {/* <Card.Actions>
           <Button mode="contained" onPress={() => console.log('Added to cart')}>Add to cart</Button>
-        </Card.Actions>
+        </Card.Actions> */}
       </Card>
     </View>
   );

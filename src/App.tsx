@@ -168,7 +168,7 @@ const App = () => {
                 source={require('../src/database/icons/person.png')}
                 resizeMode="contain"
                 style={{
-                  width: 25,
+                  width: 28,
                   height: 25,
                   tintColor: focused ? '#0043F9' : '#748c94',
                 }}
