@@ -1,17 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Card, Title, Paragraph, Button, IconButton, Text } from 'react-native-paper';
-import { Chip, Avatar } from 'react-native-paper';
+import { View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import { Card, Title, Paragraph, Button, Text, overlay } from 'react-native-paper';
 import Separator from '../components/separator';
 
 const DetailsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
+        <ImageBackground
           source={{ uri: 'https://www.araba.ae/cdn/shop/files/2_ae55ee80-e23a-43a0-9546-d0afa3f0ac52.webp?v=1707835755' }}
           style={styles.image}
         />
+      {/* <View style={styles.overlay}>
+      <Image
+        source={require('../database/icons/left.png')} 
+        style={styles.icon}
+      />
+      <Image
+        source={require('../database/icons/love.png')} 
+        style={styles.icon}
+      />
+
+      </View> */}
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Beats Studio Pro Headphones</Text>
@@ -73,8 +83,9 @@ const DetailsScreen = () => {
         </View>
         <Button
           mode="contained"
-          onPress={() => console.log('Added to cart')}
           style={styles.addButton}
+          contentStyle={styles.buttonContent}
+          labelStyle={styles.buttonText}
         >
           Add to cart
         </Button>
@@ -101,6 +112,13 @@ const styles = StyleSheet.create({
     borderColor: "#F6F5F4",
     marginRight: 8
 
+  },
+  overlay: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginTop: 16
   },
   icon: {
     width: 14,
@@ -200,7 +218,16 @@ const styles = StyleSheet.create({
     width: 280,
     height: 50,
     borderRadius: 10,
-    paddingTop: 6
+    paddingTop: 6,
+    fontSize: 30
+  },
+  buttonContent: {
+    height: 50,
+    justifyContent: 'center', 
+  },
+  buttonText: {
+    fontSize: 16, 
+    paddingBottom: 8,
   },
   flexButton: {
     flexDirection: 'row',

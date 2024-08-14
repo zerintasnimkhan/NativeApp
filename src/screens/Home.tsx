@@ -27,7 +27,7 @@ const Home = () => {
 
       <Card style={styles.featuredCard}>
         <ImageBackground
-          source={{ uri: 'https://catalog-1p-assets.prod.bfa.bfainfra.com/asset_families/product_images/addl2_AS_HER_SKMST01_G02_Herbivore_Botanicals_Rose_Hibiscus_Hydrating_Face_Mist_4oz.jpeg' }}
+          source={ require('../database/images/rose-hibiscus.jpg') }
           style={styles.cardCover}
           imageStyle={{ borderRadius: 8 }}
         >
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 8,
   },
   cardTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
     color: '#565656',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   cardPrice: {
     color: '#565656',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold'
   },
   cardButton: {
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   category: {
     alignItems: 'center',
     backgroundColor: 'white',
-    borderColor: 'grey'
+    borderColor: 'grey',
   },
   productsGrid: {
     flexDirection: 'row',
