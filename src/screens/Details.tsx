@@ -12,15 +12,18 @@ const DetailsScreen = () => {
           style={styles.image}
         />
       <View style={styles.overlay}>
+      <View style={styles.iconContainer}>
       <Image
         source={require('../database/icons/left.png')} 
-        style={styles.icon}
+        style={styles.upperIcons}
       />
+      </View>
+      <View style={styles.iconContainer}>
       <Image
         source={require('../database/icons/love.png')} 
-        style={styles.icon}
+        style={styles.upperIcons}
       />
-
+        </View>
       </View>
       </View>
       <View style={styles.contentContainer}>
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   // },
     overlay: {
       position: 'absolute',
-      top: 16,
+      top: 16,  
       left: 0,  
       right: 0, 
       flexDirection: 'row',
@@ -130,10 +133,27 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       paddingHorizontal: 16, 
     },
+    iconContainer: {
+      width: 50, // Circle size
+      height: 50, // Circle size
+      borderRadius: 30, // Makes the container a circle
+      backgroundColor: '#FFFFFF', // White background
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: '#000', // Shadow color
+      shadowOffset: { width: 0, height: 2 }, // Shadow position
+      shadowOpacity: 0.2, // Shadow transparency
+      shadowRadius: 2, // Shadow blur
+      elevation: 4, // Elevation for Android
+    },
   icon: {
     width: 14,
     height: 16,
     marginRight: 6,
+  },
+  upperIcons: {
+    width: 20,
+    height: 20,
   },
   text: {
     fontSize: 16,
