@@ -219,8 +219,11 @@ const styles = StyleSheet.create({
   paragraph: {
     marginBottom: 10,
     marginTop: 14,
-    fontSize: 14,
+    fontSize: 15,
     color: '#424242',
+    lineHeight: 19,
+    fontFamily: 'sans-serif',
+    fontWeight: '600'
   },
   // specifications: {
   //   fontWeight: 'bold',
