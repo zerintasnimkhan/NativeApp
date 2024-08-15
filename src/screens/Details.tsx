@@ -11,7 +11,7 @@ const DetailsScreen = () => {
           source={{ uri: 'https://www.araba.ae/cdn/shop/files/2_ae55ee80-e23a-43a0-9546-d0afa3f0ac52.webp?v=1707835755' }}
           style={styles.image}
         />
-      {/* <View style={styles.overlay}>
+      <View style={styles.overlay}>
       <Image
         source={require('../database/icons/left.png')} 
         style={styles.icon}
@@ -21,7 +21,7 @@ const DetailsScreen = () => {
         style={styles.icon}
       />
 
-      </View> */}
+      </View>
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Beats Studio Pro Headphones</Text>
@@ -113,13 +113,23 @@ const styles = StyleSheet.create({
     marginRight: 8
 
   },
-  overlay: {
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    marginTop: 16
-  },
+  // overlay: {
+  //   position: 'absolute',
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'baseline',
+  //   marginTop: 16
+  // },
+    overlay: {
+      position: 'absolute',
+      top: 16,
+      left: 0,  
+      right: 0, 
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16, 
+    },
   icon: {
     width: 14,
     height: 16,

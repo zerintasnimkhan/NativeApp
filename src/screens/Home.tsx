@@ -153,7 +153,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#3C6EEF',
     borderRadius: 10,
     width: 110,
-    height: 36,
+    height: 38,
+    fontSize: 20,
+    fontWeight: 'bold'
     
   },
   categoriesHeader: {
