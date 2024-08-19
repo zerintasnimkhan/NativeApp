@@ -82,7 +82,7 @@ const CartScreen = () => {
                   <Text style={styles.totalText}>Total (USD)</Text>
                   <Text style={styles.totalAmount}>${calculateSubtotal()}</Text>
                 </View>
-                <Button mode="contained" style={styles.confirmButton} contentStyle={styles.buttonContent}>
+                <Button mode="contained" style={styles.confirmButton} contentStyle={styles.buttonContent}  labelStyle={styles.buttonText}>
                   Confirm Order
                 </Button>
               </View>
@@ -238,11 +238,16 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     backgroundColor: '#3C6EEF',
-    height: 50,
+    height: 52,
     justifyContent: 'center',
+    borderColor: '#3C6EEF',
+    borderRadius: 16
   },
   buttonContent: {
     height: 50,
+  },
+  buttonText: {
+    fontSize: 16,
   },
   emptyContainer: {
     flex: 1,

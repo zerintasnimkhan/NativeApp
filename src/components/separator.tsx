@@ -11,7 +11,7 @@ const Separator = () => {
 const styles = StyleSheet.create({
     separator: {
         height: 0.8,
-        backgroundColor: '#CAD5E2'
+        backgroundColor: '#f4f6f9'
     }
 })
 
