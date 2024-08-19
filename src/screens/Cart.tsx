@@ -4,10 +4,12 @@ import { Text, Button, Divider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { removeItemFromCart, updateItemQuantity } from '../redux/slices/cartSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const CartScreen = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
+  const navigation = useNavigation(); 
 
   const handleRemoveItem = (id: string) => {
     dispatch(removeItemFromCart(id));
@@ -50,10 +52,13 @@ const CartScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.gridContainer}>
-      <TouchableOpacity style={styles.iconContainer}>
-              <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
-            </TouchableOpacity>
-      <Text style={styles.orderSummaryText}>Order Summary</Text>
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => navigation.goBack()} 
+        >
+          <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
+        </TouchableOpacity>
+        <Text style={styles.orderSummaryText}>Order Summary</Text>
       </View>
       {cartItems.length > 0 ? (
         <>
@@ -105,7 +110,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-
   },
   iconContainer: {
     justifyContent: 'center',
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
   upperIcons: {
     width: 25,
     height: 25,
-    marginRight: 10
+    marginRight: 10,
   },
   orderSummaryText: {
     marginTop: 10,
