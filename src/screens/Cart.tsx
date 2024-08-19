@@ -49,35 +49,46 @@ const CartScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={cartItems}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={() => (
-          <Text style={styles.orderSummaryText}>Order Summary</Text>
-        )}
-        ListFooterComponent={() => (
-          <View style={styles.footer}>
-            <Divider style={styles.divider} />
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryText}>Subtotal</Text>
-              <Text style={styles.summaryAmount}>${calculateSubtotal()}</Text>
-            </View>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryText}>Shipping</Text>
-              <Text style={styles.summaryAmount}>--</Text>
-            </View>
-            <Divider style={styles.divider} />
-            <View style={styles.totalRow}>
-              <Text style={styles.totalText}>Total (USD)</Text>
-              <Text style={styles.totalAmount}>${calculateSubtotal()}</Text>
-            </View>
-            <Button mode="contained" style={styles.confirmButton} contentStyle={styles.buttonContent}>
-              Confirm Order
-            </Button>
-          </View>
-        )}
-      />
+      <View style={styles.gridContainer}>
+      <TouchableOpacity style={styles.iconContainer}>
+              <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
+            </TouchableOpacity>
+      <Text style={styles.orderSummaryText}>Order Summary</Text>
+      </View>
+      {cartItems.length > 0 ? (
+        <>
+          <FlatList
+            data={cartItems}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            ListFooterComponent={() => (
+              <View style={styles.footer}>
+                <Divider style={styles.divider} />
+                <View style={styles.summaryRow}>
+                  <Text style={styles.summaryText}>Subtotal</Text>
+                  <Text style={styles.summaryAmount}>${calculateSubtotal()}</Text>
+                </View>
+                <View style={styles.summaryRow}>
+                  <Text style={styles.summaryText}>Shipping</Text>
+                  <Text style={styles.summaryAmount}>---</Text>
+                </View>
+                <Divider style={styles.divider} />
+                <View style={styles.totalRow}>
+                  <Text style={styles.totalText}>Total (USD)</Text>
+                  <Text style={styles.totalAmount}>${calculateSubtotal()}</Text>
+                </View>
+                <Button mode="contained" style={styles.confirmButton} contentStyle={styles.buttonContent}>
+                  Confirm Order
+                </Button>
+              </View>
+            )}
+          />
+        </>
+      ) : (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>No item added to the cart</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -87,21 +98,37 @@ export default CartScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
     backgroundColor: 'white',
   },
+  gridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  upperIcons: {
+    width: 25,
+    height: 25,
+    marginRight: 10
+  },
   orderSummaryText: {
-    fontSize: 18,
+    marginTop: 10,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333',
+    color: '#565656',
   },
   itemContainer: {
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     marginVertical: 8,
-    padding: 16,
+    padding: 10,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -119,11 +146,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#333',
   },
   price: {
+    marginTop: 2,
     fontSize: 16,
     color: '#333',
     marginBottom: 8,
@@ -163,6 +191,7 @@ const styles = StyleSheet.create({
   removeText: {
     color: 'red',
     fontSize: 14,
+    marginRight: 8,
   },
   footer: {
     marginTop: 340,
@@ -190,16 +219,16 @@ const styles = StyleSheet.create({
   totalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 10,
     marginBottom: 24,
   },
   totalText: {
-    fontSize: 18,
+    fontSize: 16.5,
     fontWeight: 'bold',
     color: '#333',
   },
   totalAmount: {
-    fontSize: 18,
+    fontSize: 16.5,
     fontWeight: 'bold',
     color: '#333',
   },
@@ -210,5 +239,14 @@ const styles = StyleSheet.create({
   },
   buttonContent: {
     height: 50,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    color: '#777',
   },
 });
