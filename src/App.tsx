@@ -2,6 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import Home from './screens/Home';
 import SearchScreen from './screens/Search';
@@ -9,11 +11,14 @@ import DetailsScreen from './screens/Details';
 import Favorites from './screens/Favorites';
 import Wallet from './screens/Wallet';
 import Profile from './screens/Profile';
+import Cart from './screens/Cart';
+
 import { Image, Text, View } from 'react-native';
 
 export type StackParamList = {
   Search: undefined;
   Details: { product: { id: string; name: string; price: string; image: string } };
+  Cart: undefined; 
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -31,12 +36,17 @@ const SearchStackNavigator = () => {
       component={DetailsScreen}
       options={{ headerShown: false }}
        />
+        <Stack.Screen name="Cart" 
+        component={Cart}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
 
 const App = () => {
   return (
+    <Provider store={store}> 
     <NavigationContainer>
       <Tab.Navigator
       screenOptions={{
@@ -190,6 +200,7 @@ const App = () => {
        />
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 
