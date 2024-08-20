@@ -1,7 +1,6 @@
-// redux/slices/favoritesSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FavoriteItem {
+interface Product {
   id: string;
   name: string;
   price: number;
@@ -9,7 +8,7 @@ interface FavoriteItem {
 }
 
 interface FavoritesState {
-  items: FavoriteItem[];
+  items: Product[];
 }
 
 const initialState: FavoritesState = {
@@ -20,9 +19,9 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    addItemToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
-      if (!existingItem) {
+    addItemToFavorites: (state, action: PayloadAction<Product>) => {
+      const itemExists = state.items.find(item => item.id === action.payload.id);
+      if (!itemExists) {
         state.items.push(action.payload);
       }
     },
@@ -33,5 +32,4 @@ const favoritesSlice = createSlice({
 });
 
 export const { addItemToFavorites, removeItemFromFavorites } = favoritesSlice.actions;
-
 export default favoritesSlice.reducer;

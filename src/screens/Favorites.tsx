@@ -1,11 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Image } from 'react-native';
+import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
+import { removeItemFromFavorites } from '../redux/slices/favoritesSlice';
 
 const FavoritesScreen = () => {
   const favoriteItems = useSelector((state: RootState) => state.favorites.items);
+  const dispatch = useDispatch();
+
+  const handleRemoveFromFavorites = (id: string) => {
+    dispatch(removeItemFromFavorites(id));
+  };
 
   const renderItem = ({ item }: { item: { id: string; name: string; price: number; image: string } }) => (
     <View style={styles.itemContainer}>
@@ -14,6 +20,9 @@ const FavoritesScreen = () => {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
       </View>
+      <TouchableOpacity onPress={() => handleRemoveFromFavorites(item.id)}>
+        <Image source={require('../database/icons/cross.png')} style={styles.removeIcon} />
+      </TouchableOpacity>
     </View>
   );
 
@@ -66,6 +75,10 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 16,
     color: '#333',
+  },
+  removeIcon: {
+    width: 24,
+    height: 24,
   },
   emptyText: {
     fontSize: 18,

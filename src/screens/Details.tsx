@@ -40,7 +40,7 @@ const DetailsScreen = () => {
               <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
-              <Image source={require('../database/icons/love.png')} style={styles.upperIcons} />
+              <Image source={require('../database/icons/favorite.png')} style={styles.upperIcons} />
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   upperIcons: {
-    width: 20,
+    width: 25,
     height: 20,
   },
   text: {
