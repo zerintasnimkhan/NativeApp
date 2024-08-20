@@ -2,7 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../redux/slices/cartSlice'; 
+import { addItemToCart } from '../redux/slices/cartSlice';
+import { addItemToFavorites } from '../redux/slices/favoritesSlice'; 
 import { useNavigation } from '@react-navigation/native'; 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../App'; 
@@ -26,6 +27,10 @@ const DetailsScreen = () => {
     navigation.navigate('Cart');
   };
 
+  const handleAddToFavorites = () => {
+    dispatch(addItemToFavorites(product));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -34,7 +39,7 @@ const DetailsScreen = () => {
             <TouchableOpacity style={styles.iconContainer}>
               <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconContainer}>
+            <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
               <Image source={require('../database/icons/love.png')} style={styles.upperIcons} />
             </TouchableOpacity>
           </View>
