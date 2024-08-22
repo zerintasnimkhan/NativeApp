@@ -28,6 +28,7 @@ const FavoritesScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.favoritesText}>Favorites</Text>
       {favoriteItems.length > 0 ? (
         <FlatList
           data={favoriteItems}
@@ -48,6 +49,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
+  },
+  favoritesText: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#565656',
+
   },
   itemContainer: {
     flexDirection: 'row',

@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, StackActions, useFocusEffect, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import Home from './screens/Home';
-import SearchScreen from './screens/Search';
+import SearchScreen from './screens/SearchMain';
 import DetailsScreen from './screens/Details';
 import Favorites from './screens/Favorites';
 import Wallet from './screens/Wallet';
@@ -16,7 +16,7 @@ import Cart from './screens/Cart';
 import { Image, Text, View } from 'react-native';
 
 export type StackParamList = {
-  Search: undefined;
+  SearchMain: undefined;
   Details: { product: { id: string; name: string; price: string; image: string } };
   Cart: undefined; 
 };
@@ -25,10 +25,22 @@ const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator();
 
 const SearchStackNavigator = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset to the initial screen
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'SearchMain' }],
+      });
+    }, [navigation])
+  );
+
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Search"
+        name="SearchMain"
         component={SearchScreen}
         options={{ headerShown: false }}
       />
@@ -119,6 +131,7 @@ const App = () => {
        />
         <Tab.Screen name="Favorites" component={Favorites} 
          options={{
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 0 }}>
               <Image

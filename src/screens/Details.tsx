@@ -36,7 +36,7 @@ const DetailsScreen = () => {
       <View style={styles.imageContainer}>
         <ImageBackground source={{ uri: product.image }} style={styles.image}>
           <View style={styles.overlay}>
-            <TouchableOpacity style={styles.iconContainer}>
+            <TouchableOpacity >
               <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   upperIcons: {
-    width: 25,
-    height: 20,
+    width: 30,
+    height: 30,
   },
   text: {
     fontSize: 16,

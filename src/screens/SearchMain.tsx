@@ -7,7 +7,7 @@ import Details from './Details';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from "../App"
 
-type SearchScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Search'>;
+type SearchScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'SearchMain'>;
 
 const products = [
   { id: '1', name: 'Sony Wireless Head...', price: '$58.00', image: 'https://image.made-in-china.com/202f0j00oMIqEevdZrct/Over-Ear-Earphones-Wireless-Noise-Cancelling-Anc-Bluetooth-Headphone.webp' },
@@ -27,13 +27,13 @@ const SearchScreen = () => {
                 source={require('../database/icons/left.png')}
                 resizeMode="contain"
                 style={{
-                  width: 5,
-                  height: 5,
-                  backgroundColor: '#F5F6F4',
-                  borderBottomWidth: 50,
-                  borderRightWidth: 20,
-                  borderLeftWidth: 20,
-                  borderRadius: 10
+                  width: 30,
+                  height: 30,
+                  // backgroundColor: '#F5F6F4',
+                  // borderBottomWidth: 50,
+                  // borderRightWidth: 20,
+                  // borderLeftWidth: 20,
+                  // borderRadius: 10
                 }}
               />
       <View style={styles.searchBar}>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 20,
-    paddingTop: 30,
+    paddingTop: 20,
   },
   gridContainer: {
     flexDirection: 'row',
@@ -88,9 +88,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     marginTop: 10,
-    width: 320
+    width: 330
   },
   searchInput: {
+    fontSize: 16,
     marginLeft: 10,
     flex: 1,
     height: 36,
