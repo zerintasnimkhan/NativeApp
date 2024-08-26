@@ -159,14 +159,15 @@ const App = () => {
       />
         <Tab.Screen name="Wallet" component={Wallet}
          options={{
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 0 }}>
               <Image
-                source={require('../src/database/icons/wallet.png')}
+                source={require('../src/database/icons/cart.png')}
                 resizeMode="contain"
                 style={{
-                  width: 28,
-                  height: 28,
+                  width: 25,
+                  height: 25,
                   tintColor: focused ? '#3C6EEF' : '#818589',
                 }}
               />
@@ -178,7 +179,7 @@ const App = () => {
                   marginTop: 6
                 }}
               >
-                Wallet
+                Cart
               </Text>
             </View>
           ),
@@ -186,6 +187,7 @@ const App = () => {
        />
         <Tab.Screen name="Profile" component={Profile}
          options={{
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 0 }}>
               <Image

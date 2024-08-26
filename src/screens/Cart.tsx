@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   footer: {
-    marginTop: 340,
+    marginTop: 100,
     backgroundColor: '#FFFFFF',
     paddingBottom: 40,
   },

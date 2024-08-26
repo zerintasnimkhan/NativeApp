@@ -18,7 +18,7 @@ const FavoritesScreen = () => {
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+        <Text style={styles.price}>${item.price}</Text>
       </View>
       <TouchableOpacity onPress={() => handleRemoveFromFavorites(item.id)}>
         <Image source={require('../database/icons/cross.png')} style={styles.removeIcon} />

@@ -4,26 +4,38 @@ import { Button, Text } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../redux/slices/cartSlice';
 import { addItemToFavorites } from '../redux/slices/favoritesSlice'; 
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'; 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../App'; 
 import Separator from '../components/separator';
+
+type DetailsScreenRouteProp = RouteProp<StackParamList, 'Details'>;
 
 type NavigationProp = NativeStackNavigationProp<StackParamList, 'Cart'>;
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<DetailsScreenRouteProp>();
 
-  const product = {
-    id: '1',
-    name: 'Beats Studio Pro Headphones',
-    price: 65.90,
-    image: 'https://www.araba.ae/cdn/shop/files/2_ae55ee80-e23a-43a0-9546-d0afa3f0ac52.webp?v=1707835755',
-  };
+  const product = route.params?.product;
+
+  if (!product) {
+    return (
+      <View style={styles.container}>
+        <Text>Product details not available.</Text>
+      </View>
+    );
+  }
 
   const handleAddToCart = () => {
-    dispatch(addItemToCart({ ...product, quantity: 1 }));
+    
+    const productWithNumericPrice = {
+      ...product,
+      price: typeof product.price === 'string' ? parseFloat(product.price) : product.price, 
+      quantity: 1,
+    };
+    dispatch(addItemToCart(productWithNumericPrice));
     navigation.navigate('Cart');
   };
 
@@ -36,7 +48,7 @@ const DetailsScreen = () => {
       <View style={styles.imageContainer}>
         <ImageBackground source={{ uri: product.image }} style={styles.image}>
           <View style={styles.overlay}>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
@@ -50,48 +62,44 @@ const DetailsScreen = () => {
         <View style={styles.ratingContainer}>
           <TouchableOpacity style={styles.chipContainer}>
             <Image source={require('../database/icons/star.png')} style={styles.icon} />
-            <Text style={styles.text}>4.9</Text>
+            <Text style={styles.text}>{product.rating}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.chipContainer}>
             <Image source={require('../database/icons/like.png')} style={styles.icon} />
-            <Text style={styles.text}>88%</Text>
+            <Text style={styles.text}>{product.percentage}%</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.paragraph}>
-          Beats Studio Pro Wireless is a premium Bluetooth overhead headphone. The gadget sounds great and effectively suppresses noise.
+          {product.description}
         </Text>
-        <View style={{flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'}}>
-        <Text style={styles.specifications}>Specifications</Text>
-        <Image
-                source={require('../database/icons/next.png')}
-                resizeMode="contain"
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-          </View>
-        <Separator/>
-        <View style={{flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'}}>
-        <Text style={styles.reviews}>172 reviews</Text>
-        <Image
-                source={require('../database/icons/next.png')}
-                resizeMode="contain"
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-              </View>
-        <Separator/>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={styles.specifications}>Specifications</Text>
+          <Image
+            source={require('../database/icons/next.png')}
+            resizeMode="contain"
+            style={{
+              width: 20,
+              height: 20,
+            }}
+          />
+        </View>
+        <Separator />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={styles.reviews}>{product.numberOfReviews} reviews</Text>
+          <Image
+            source={require('../database/icons/next.png')}
+            resizeMode="contain"
+            style={{
+              width: 20,
+              height: 20,
+            }}
+          />
+        </View>
+        <Separator />
         <View style={styles.flexButton}>
           <View>
-            <Text style={styles.price}>${product.price.toFixed(2)}</Text>
-            <Text style={styles.delivery}>2-5 days</Text>
+            <Text style={styles.price}>${parseFloat(product.price.toString()).toFixed(2)}</Text>
+            <Text style={styles.delivery}>{product.deliveryTime}</Text>
           </View>
           <Button
             mode="contained"
