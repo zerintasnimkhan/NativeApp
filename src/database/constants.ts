@@ -56,3 +56,22 @@ export const Items = [
 
 
 ]
+
+export const categoriItems = [
+    {
+    id: '1',
+    name: 'HBKJJ',
+    price: '456',
+    },
+    // {
+    //     id: '2',
+    //     name: 'HBKJJ',
+    //     price: '456',
+    //     },
+    // //     {
+    // //         id: '3',
+    // //         name: 'HBKJJ',
+    // //         price: '456',
+    // //         }
+
+]
