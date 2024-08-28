@@ -23,15 +23,15 @@ const SearchScreen = () => {
           }}
         />
         <View style={styles.searchBar}>
-          <TextInput style={styles.searchInput} placeholder="Wireless headphones" />
+          <TextInput style={styles.searchInput} placeholder="Search" />
         </View>
       </View>
-      <Text style={styles.resultCount}>52,630 products found in Headphones category</Text>
+      <Text style={styles.resultCount}>52,630 paintings found in portrait category</Text>
       <View style={styles.filters}>
         <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Price</Button>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Brand</Button>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Color</Button>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Details</Button>
+        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Artist</Button>
+        {/* <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Color</Button>
+        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Details</Button> */}
       </View>
       <FlatList
         data={Items} 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     width: 330
   },
   searchInput: {
-    fontSize: 16,
+    fontSize: 15.5,
     marginLeft: 10,
     flex: 1,
     height: 36,

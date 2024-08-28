@@ -14,6 +14,7 @@ import Profile from './screens/Profile';
 import Cart from './screens/Cart';
 
 import { Image, Text, View } from 'react-native';
+// import CategoriesScreen from './screens/Categories';
 
 export type StackParamList = {
   SearchMain: undefined;
@@ -39,6 +40,8 @@ const SearchStackNavigator = () => {
 
   return (
     <Stack.Navigator>
+      {/* <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Categories" component={CategoriesScreen} />  */}
       <Stack.Screen
         name="SearchMain"
         component={SearchScreen}
