@@ -1,7 +1,30 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList, Animated } from 'react-native';
 import { Text, Card, Button } from 'react-native-paper';
 
+
+const featuredImages = [
+  {
+    uri: require('../database/images/cover.jpg'),
+    title: 'Mountains and Lakes',
+    price: 340.20,
+  },
+  {
+    uri: require('../database/images/image@2x-10.png'),
+    title: 'Sunset Glory',
+    price: 450.00,
+  },
+  {
+    uri: require('../database/images/image@2x-7.png'),
+    title: 'Ocean Breeze',
+    price: 320.15,
+  },
+  {
+    uri: require('../database/images/image@2x-8.png'),
+    title: 'Ocean Breeze',
+    price: 320.15,
+  },
+];
 
 interface Category {
   id: string;
@@ -57,6 +80,19 @@ const imagesByCategory: ImagesByCategory = {
 };
 
 const Home = () => {
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const flatListRef = useRef<FlatList>(null);
+  let currentIndex = 0;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % featuredImages.length;
+      flatListRef.current?.scrollToIndex({ animated: true, index: currentIndex });
+    }, 5000); // Adjust the time interval as needed
+
+    return () => clearInterval(interval);
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategoryPress = (id: string) => {
@@ -71,7 +107,7 @@ const Home = () => {
         <Image source={require('../database/icons/alarm-bell.png')} resizeMode="contain" style={{ width: 25, height: 25 }} />
       </View>
 
-      <Card style={styles.featuredCard}>
+      {/* <Card style={styles.featuredCard}>
         <ImageBackground
           source={require('../database/images/cover.jpg')}
           style={styles.cardCover}
@@ -84,8 +120,37 @@ const Home = () => {
             <Button textColor='white' style={styles.cardButton}>Add to Cart</Button>
           </View>
         </ImageBackground>
-      </Card>
+      </Card> */}
 
+      {/* Horizontal ScrollView for the featured card */}
+      <FlatList
+        data={featuredImages}
+        ref={flatListRef}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: false }
+        )}
+        renderItem={({ item }) => (
+          <View style={styles.featuredCard}>
+            <ImageBackground
+              source={item.uri}
+              style={styles.cardCover}
+              imageStyle={{ borderRadius: 8 }}
+            >
+              <View style={styles.cardContentOverlay}>
+                <Text variant="bodySmall" style={styles.herb}>Herbviore</Text>
+                <Text variant="titleLarge" style={styles.cardTitle}>{item.title}</Text>
+                <Text variant="bodyLarge" style={styles.cardPrice}>${item.price.toFixed(2)}</Text>
+                <Button textColor='white' style={styles.cardButton}>Add to Cart</Button>
+              </View>
+            </ImageBackground>
+          </View>
+        )}
+      />
       <View style={styles.categoriesHeader}>
         <Text variant="titleLarge" style={{ fontWeight: 'bold', color: '#565656' }}>Popular art categories</Text>
         <TouchableOpacity>
@@ -148,9 +213,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 22,
   },
+  featuredScroll: {
+    height: 250, // Adjust based on your card's height
+    marginBottom: 16,
+    
+  },
   featuredCard: {
     marginBottom: 16,
-    borderRadius: 20
+    borderRadius: 20,
+    width: 340, // Adjust based on your desired card width
+    marginHorizontal: 10,
   },
   cardCover: {
     height: 200,
