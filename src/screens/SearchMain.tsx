@@ -57,7 +57,7 @@ const SearchScreen = () => {
       borderRadius: 20,
       borderColor: isDarkMode ? '#444' : '#F4F5F6',
       backgroundColor: isDarkMode ? '#444' : '#F6F5F4',
-      color: isDarkMode ? '#fff' : 'black',
+      color: isDarkMode ? '#fff' : '#000',
     },
   });
 
@@ -78,6 +78,7 @@ const SearchScreen = () => {
           style={{
             width: 30,
             height: 30,
+            tintColor: isDarkMode ? '#FFFFFF' : '#3C6EEF',
           }}
         />
         <View style={dynamicStyles.searchBar}>

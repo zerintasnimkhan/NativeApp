@@ -112,7 +112,36 @@ type RootStackParamList = {
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const Home = () => {
-  const { isDarkMode, toggleTheme, theme } = useTheme();
+  const { toggleTheme, isDarkMode, theme } = useTheme();
+
+  const dynamicStyles = StyleSheet.create({
+    deliveryContainer: {
+      color: isDarkMode ? '#fff' : '#000',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 22,
+    },
+    locationText: {
+      color: isDarkMode ? '#fff' : '#000',
+      marginRight: 30,
+      paddingLeft: 0,
+   }, 
+   productInfo: {
+    backgroundColor: isDarkMode ? '#000' : '#fff',
+    padding: 10,
+  },
+  productName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: isDarkMode ? '#fff' : '#565656',
+  },
+  productPrice: {
+    fontSize: 14,
+    color: isDarkMode ? '#fff' : '#565656', 
+    marginTop: 4,
+  },
+  })
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -138,9 +167,9 @@ const Home = () => {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={styles.deliveryContainer}>
+      <View style={dynamicStyles.deliveryContainer}>
         <Image source={require('../database/icons/gps.png')} resizeMode="contain" style={{ width: 25, height: 20 }} />
-        <Text style={styles.locationText}>Delivery: 96744, Puulena St 74, Kaneohe, HI</Text>
+        <Text style={dynamicStyles.locationText}>Delivery: 96744, Puulena St 74, Kaneohe, HI</Text>
         <Image source={require('../database/icons/alarm-bell.png')} resizeMode="contain" style={{ width: 22, height: 22, marginRight: 5, marginLeft: -10 }} />
         <TouchableOpacity onPress={toggleTheme}>
         <Image
@@ -215,7 +244,7 @@ const Home = () => {
                 style={{ width: 56, height: 56, borderRadius: 28 }}
                 resizeMode="cover"
               />
-              <Text style={{ marginTop: 8 }}>{category.title}</Text>
+              <Text style={{ marginTop: 8, color: isDarkMode ? '#fff' : '#565656' }}>{category.title}</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -232,9 +261,9 @@ const Home = () => {
                 style={styles.productImage}
                 imageStyle={styles.imageBackground}
               />
-              <View style={styles.productInfo}>
-                <Text style={styles.productName}>{productName}</Text>
-                <Text style={styles.productPrice}>$190.00</Text>
+              <View style={dynamicStyles.productInfo}>
+                <Text style={dynamicStyles.productName}>{productName}</Text>
+                <Text style={dynamicStyles.productPrice}>$190.00</Text>
               </View>
             </View>
           );
@@ -257,16 +286,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginRight: 30
   },
-  locationText: {
-     marginRight: 30,
-     paddingLeft: 0,
-  }, 
-  deliveryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 22,
-  },
+  
   featuredScroll: {
     height: 250, // Adjust based on your card's height
     marginBottom: 16,
@@ -367,20 +387,6 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',  
     borderRadius: 15,
     backgroundColor: '#E0E0E0',  
-  },
-  productInfo: {
-    padding: 10,
-    backgroundColor: '#FFFFFF',
-  },
-  productName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#565656',
-  },
-  productPrice: {
-    fontSize: 14,
-    color: '#565656',  
-    marginTop: 4,
   },
   textColor: {
     color: '#A9A9A9',
