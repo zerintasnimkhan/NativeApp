@@ -8,6 +8,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../App'; 
 import Separator from '../components/separator';
+import { useTheme } from '../contexts/ThemeContext';
 
 type DetailsScreenRouteProp = RouteProp<StackParamList, 'Details'>;
 
@@ -17,6 +18,12 @@ const DetailsScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<DetailsScreenRouteProp>();
+
+  const { theme, toggleTheme, isDarkMode } = useTheme(); // Use theme context
+  const isLightMode = theme.mode === 'light';
+  const iconSource = isLightMode
+    ? require('../database/icons/sun.png') // Light mode icon path
+    : require('../database/icons/moon.png'); // Dark mode icon path
 
   const product = route.params?.product;
   const [menuVisible, setMenuVisible] = useState(false); // State for dropdown menu visibility
@@ -53,9 +60,18 @@ const DetailsScreen = () => {
     // Here you can handle what happens when an option is selected
   };
 
+  const dynamicStyles = StyleSheet.create({
+    contentContainer: {
+      paddingHorizontal: 20,
+      backgroundColor: isDarkMode ? '#000' : '#fff', 
+      borderColor: 'white',
+      borderRadius: 20,
+    },
+  })
+
   return (
     <Provider>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
         <View style={styles.imageContainer}>
           <ImageBackground source={{ uri: product.image }} style={styles.image}>
             <View style={styles.overlay}>
@@ -68,7 +84,7 @@ const DetailsScreen = () => {
             </View>
           </ImageBackground>
         </View>
-        <View style={styles.contentContainer}>
+        <View style={dynamicStyles.contentContainer}>
           <Text style={styles.title}>{product.name}</Text>
           <View style={styles.ratingContainer}>
             <TouchableOpacity style={styles.chipContainer}>
@@ -238,12 +254,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     resizeMode: 'cover',
     backgroundColor: '#f6f5f4',
-  },
-  contentContainer: {
-    paddingHorizontal: 20,
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderRadius: 20,
   },
   title: {
     fontSize: 24,

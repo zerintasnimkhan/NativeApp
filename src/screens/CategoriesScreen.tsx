@@ -1,8 +1,8 @@
-// CategoriesScreen.tsx
 import React from 'react';
 import { View, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Define the categories array directly in this file
 const categories = [
@@ -73,7 +73,6 @@ const categories = [
   },
 ];
 
-// Define your navigation parameter list directly in this file
 export type RootStackParamList = {
   Categories: undefined; // Or any parameters for Categories screen
   CategoryDetail: { categoryId: string }; // Example screen with parameter
@@ -86,9 +85,23 @@ interface Props {
 }
 
 const CategoriesScreen: React.FC<Props> = ({ navigation }) => {
+  const { theme, toggleTheme } = useTheme();
+  const isLightMode = theme.mode === 'light';
+  const iconSource = isLightMode
+    ? require('../database/icons/sun.png') // Replace with your light mode icon path
+    : require('../database/icons/moon.png'); // Replace with your dark mode icon path
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Art Categories</Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* Header Row */}
+      <View style={styles.headerRow}>
+        <Text style={[styles.title, { color: theme.text }]}>Art Categories</Text>
+        <TouchableOpacity onPress={toggleTheme}>
+          <Image source={iconSource} style={[styles.icon, { tintColor: theme.text }]} />
+        </TouchableOpacity>
+      </View>
+
+      {/* Categories List */}
       <FlatList
         data={categories}
         keyExtractor={(item) => item.id}
@@ -98,7 +111,7 @@ const CategoriesScreen: React.FC<Props> = ({ navigation }) => {
             onPress={() => navigation.navigate('CategoryDetail', { categoryId: item.id })}
           >
             <Image source={item.icon} style={styles.categoryImage} />
-            <Text style={styles.categoryTitle}>{item.name}</Text>
+            <Text style={[styles.categoryTitle, { color: theme.text }]}>{item.name}</Text>
           </TouchableOpacity>
         )}
         contentContainerStyle={styles.listContainer}
@@ -112,12 +125,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 36,
   },
+  headerRow: {
+    flexDirection: 'row', // Align items in a row
+    justifyContent: 'space-between', // Space out the title and icon
+    alignItems: 'center', // Vertically center items
+    marginBottom: 28,
+  },
   title: {
-    marginTop: 5,
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 28,
-    color: '#565656',
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
   listContainer: {
     paddingBottom: 16,
@@ -135,8 +155,7 @@ const styles = StyleSheet.create({
   categoryTitle: {
     marginLeft: 14,
     fontSize: 18,
-    fontWeight: 'semibold',
-    color: '#565656'
+    fontWeight: '600',
   },
 });
 

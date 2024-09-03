@@ -1,23 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-
-import { useFonts, Poppins_400Regular } from 'react-native-google-fonts';
-import GlobalFont from 'react-native-global-font';
+import { useTheme } from '../contexts/ThemeContext'; // Import useTheme hook
 
 const ProfileScreen = () => {
+  const { theme, toggleTheme } = useTheme(); // Use theme context
+  const isLightMode = theme.mode === 'light';
 
-
-  // const [fontsLoaded] = useFonts({
-  //   Poppins_400Regular,
-  // });
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
-
-  // Set the default global font (Optional)
-  // GlobalFont.applyGlobal('Poppins_400Regular');
   const user = {
     profilePicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxctjU21pUENIsGN1F4qY21P7GfdEbhTMp2g&s',
     username: 'Ayaka Kimble',
@@ -30,39 +18,37 @@ const ProfileScreen = () => {
   };
 
   return (
-      
-    <ScrollView contentContainerStyle={styles.container}>
-    <Text style={styles.ProfileText}>Profile</Text>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: theme.background }]}>
+      <Text style={[styles.ProfileText, { color: theme.text }]}>Profile</Text>
       <View style={styles.profileContainer}>
         <Image source={{ uri: user.profilePicture }} style={styles.profileImage} />
-        <Text style={styles.username}>{user.username}</Text>
+        <Text style={[styles.username, { color: theme.text }]}>{user.username}</Text>
       </View>
 
-     
       <View style={styles.accountContainer}>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Email:</Text>
-          <Text style={styles.value}>{user.email}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Email:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.email}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Phone:</Text>
-          <Text style={styles.value}>{user.phone}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Phone:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.phone}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Location:</Text>
-          <Text style={styles.value}>{user.location}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Location:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.location}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Account Type:</Text>
-          <Text style={styles.value}>{user.accountType}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Account Type:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.accountType}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Verification Status:</Text>
-          <Text style={styles.value}>{user.verificationStatus}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Verification Status:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.verificationStatus}</Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.label}>Membership Level:</Text>
-          <Text style={styles.value}>{user.membershipLevel}</Text>
+          <Text style={[styles.label, { color: theme.text }]}>Membership Level:</Text>
+          <Text style={[styles.value, { color: theme.text }]}>{user.membershipLevel}</Text>
         </View>
       </View>
 
@@ -71,7 +57,7 @@ const ProfileScreen = () => {
           <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.logoutButton]}>
-          <Text style={[styles.buttonText, styles.logoutButtonText]}>Log Out</Text>
+          <Text style={styles.buttonText}>Log Out</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -81,16 +67,13 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#f9f9f9',
   },
   ProfileText: {
     marginTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#565656',
   },
-
   profileContainer: {
     alignItems: 'center',
     marginBottom: 30,
@@ -104,16 +87,11 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 20,
     fontWeight: '600',
-    fontFamily: 'Poppins-Regular'
+    fontFamily: 'Poppins-Regular',
   },
   accountContainer: {
     marginTop: 40,
     marginBottom: 30,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
   },
   detailRow: {
     flexDirection: 'row',
@@ -122,15 +100,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    color: '#555',
   },
   value: {
     fontSize: 16,
     fontWeight: '500',
-
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: 120,
   },
   button: {
     backgroundColor: '#3C6EEF',
@@ -146,9 +122,6 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: '#FF3B30',
-  },
-  logoutButtonText: {
-    color: '#fff',
   },
 });
 
