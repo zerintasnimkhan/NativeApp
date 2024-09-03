@@ -8,16 +8,16 @@ import GlobalFont from 'react-native-global-font';
 const ProfileScreen = () => {
 
 
-  const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-  });
+  // const [fontsLoaded] = useFonts({
+  //   Poppins_400Regular,
+  // });
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
   // Set the default global font (Optional)
-  GlobalFont.applyGlobal('Poppins_400Regular');
+  // GlobalFont.applyGlobal('Poppins_400Regular');
   const user = {
     profilePicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxctjU21pUENIsGN1F4qY21P7GfdEbhTMp2g&s',
     username: 'Ayaka Kimble',

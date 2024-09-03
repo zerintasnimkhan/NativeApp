@@ -1,18 +1,76 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, FlatList, Text, Image } from 'react-native';
+import { View, TextInput, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Items } from '../database/constants'; 
+import { Items } from '../database/constants';
 import { StackParamList } from "../App";
+import { useTheme } from '../contexts/ThemeContext';
 
 type SearchScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'SearchMain'>;
 
 const SearchScreen = () => {
   const navigation = useNavigation<SearchScreenNavigationProp>();
+  const { theme, isDarkMode, toggleTheme } = useTheme();
+  // Apply dynamic styles based on theme
+  const dynamicStyles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: isDarkMode ? '#000' : '#fff', // Black for dark mode, white for light mode
+      padding: 20,
+      paddingTop: 20,
+    },
+    searchBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#f1f1f1', // Darker background for dark mode
+      borderRadius: 14,
+      padding: 10,
+      marginBottom: 16,
+      marginTop: 10,
+      width: 300,
+    },
+    searchInput: {
+      fontSize: 15,
+      marginLeft: 10,
+      flex: 1,
+      height: 36,
+      borderRadius: 40,
+      backgroundColor: isDarkMode ? '#333' : '#f1f1f1', // Darker input background for dark mode
+      color: isDarkMode ? '#fff' : '#000', // White text for dark mode, black text for light mode
+    },
+    cardContent: {
+      backgroundColor: isDarkMode ? '#222' : '#fff', // Darker card background for dark mode
+    },
+    productName: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      marginBottom: 0,
+      color: isDarkMode ? '#fff' : '#000', // White text for dark mode, black text for light mode
+    },
+    productPrice: {
+      fontSize: 14,
+      color: isDarkMode ? '#ddd' : '#333', // Lighter text for dark mode
+      fontWeight: 'normal',
+    },
+    detailsButton: {
+      borderRadius: 20,
+      borderColor: isDarkMode ? '#444' : '#F4F5F6',
+      backgroundColor: isDarkMode ? '#444' : '#F6F5F4',
+      color: isDarkMode ? '#fff' : 'black',
+    },
+  });
+
+ 
+
+  // Ensure the theme object has a 'mode' property
+  const isLightMode = theme.mode === 'light';
+  const iconSource = theme.mode === 'light'
+  ? require('../database/icons/sun.png') // Replace with your light mode icon path
+  : require('../database/icons/moon.png'); 
 
   return (
-    <View style={styles.container}>
+    <View style={dynamicStyles.container}>
       <View style={styles.gridContainer}>
         <Image
           source={require('../database/icons/left.png')}
@@ -22,31 +80,36 @@ const SearchScreen = () => {
             height: 30,
           }}
         />
-        <View style={styles.searchBar}>
-          <TextInput style={styles.searchInput} placeholder="Search" />
+        <View style={dynamicStyles.searchBar}>
+          <TextInput style={dynamicStyles.searchInput} placeholder="Search" placeholderTextColor={isDarkMode ? '#aaa' : '#000'} />
         </View>
+        <TouchableOpacity onPress={toggleTheme}>
+        <Image
+          source={iconSource}
+          style={[styles.icon, { tintColor: theme.text }]}
+        />
+      </TouchableOpacity>
       </View>
-      <Text style={styles.resultCount}>52,630 paintings found in portrait category</Text>
       <View style={styles.filters}>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Price</Button>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Artist</Button>
-        {/* <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Color</Button>
-        <Button mode="contained" buttonColor="#F6F5F4" textColor="black" style={styles.detailsButton}>Details</Button> */}
+        <Button mode="contained" style={dynamicStyles.detailsButton}>Price</Button>
+        <Button mode="contained" style={dynamicStyles.detailsButton}>Artist</Button>
+        <Button mode="contained" style={dynamicStyles.detailsButton}>Category</Button>
+        <Button mode="contained" style={dynamicStyles.detailsButton}>Label</Button>
       </View>
       <FlatList
-        data={Items} 
-        keyExtractor={(item) => item.id.toString()} 
-        numColumns={2} 
-        columnWrapperStyle={styles.row} 
+        data={Items}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
         renderItem={({ item }) => (
           <Card
             style={styles.productCard}
             onPress={() => navigation.navigate('Details', { product: item })}
           >
             <Card.Cover source={{ uri: item.image }} style={styles.productImage} />
-            <Card.Content style={styles.cardContent}>
-              <Title style={styles.productName}>{item.name}</Title>
-              <Paragraph style={styles.productPrice}>${item.price}</Paragraph>
+            <Card.Content style={dynamicStyles.cardContent}>
+              <Title style={dynamicStyles.productName}>{item.name}</Title>
+              <Paragraph style={dynamicStyles.productPrice}>${item.price}</Paragraph>
             </Card.Content>
           </Card>
         )}
@@ -55,80 +118,39 @@ const SearchScreen = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    paddingTop: 20,
-  },
   gridContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-
   },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f1f1f1',
-    borderRadius: 14,
-    padding: 10,
+  icon: {
+    width: 20,
+    height: 20,
     marginBottom: 10,
-    marginTop: 10,
-    width: 330
-  },
-  searchInput: {
-    fontSize: 15.5,
-    marginLeft: 10,
-    flex: 1,
-    height: 36,
-    borderRadius: 40,
-    backgroundColor: '#f1f1f1',
-  },
-  resultCount: {
-    marginTop: 6,
-    marginBottom: 14,
-    fontSize: 16,
+    marginRight: 16,
+    marginLeft: 16
   },
   filters: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 18,
-  },
-  filterButton: {
-    borderRadius: 20,
-  },
-  detailsButton: {
-    borderRadius: 20,
-    borderColor: 'F4F5F6'
+    marginBottom: 22,
   },
   row: {
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     marginBottom: 15,
   },
   productCard: {
     width: '48%',
-    borderRadius: 14, 
-    overflow: 'hidden', 
-  },
-  cardContent: {
-    backgroundColor: 'white'
-
+    borderRadius: 16,
+    shadowColor: 'transparent',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   },
   productImage: {
     height: 190,
-  },
-  productName: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 0,
-  },
-  productPrice: {
-    fontSize: 14,
-    color: '#333',
-    fontWeight: 'normal',
   },
 });
 

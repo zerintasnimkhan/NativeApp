@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Button, Text, Menu, Divider, Provider } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../redux/slices/cartSlice';
 import { addItemToFavorites } from '../redux/slices/favoritesSlice'; 
@@ -19,6 +19,11 @@ const DetailsScreen = () => {
   const route = useRoute<DetailsScreenRouteProp>();
 
   const product = route.params?.product;
+  const [menuVisible, setMenuVisible] = useState(false); // State for dropdown menu visibility
+  const [selectedOption, setSelectedOption] = useState(''); // State for selected option
+
+  const openMenu = () => setMenuVisible(true);
+  const closeMenu = () => setMenuVisible(false);
 
   if (!product) {
     return (
@@ -29,7 +34,6 @@ const DetailsScreen = () => {
   }
 
   const handleAddToCart = () => {
-    
     const productWithNumericPrice = {
       ...product,
       price: typeof product.price === 'string' ? parseFloat(product.price) : product.price, 
@@ -43,76 +47,97 @@ const DetailsScreen = () => {
     dispatch(addItemToFavorites(product));
   };
 
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option);
+    closeMenu();
+    // Here you can handle what happens when an option is selected
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <ImageBackground source={{ uri: product.image }} style={styles.image}>
-          <View style={styles.overlay}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
+    <Provider>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <ImageBackground source={{ uri: product.image }} style={styles.image}>
+            <View style={styles.overlay}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Image source={require('../database/icons/left.png')} style={styles.upperIcons} />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
+                <Image source={require('../database/icons/favorite.png')} style={styles.upperIcons} />
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>{product.name}</Text>
+          <View style={styles.ratingContainer}>
+            <TouchableOpacity style={styles.chipContainer}>
+              <Image source={require('../database/icons/star.png')} style={styles.icon} />
+              <Text style={styles.text}>{product.rating}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconContainer} onPress={handleAddToFavorites}>
-              <Image source={require('../database/icons/favorite.png')} style={styles.upperIcons} />
+            <TouchableOpacity style={styles.chipContainer}>
+              <Image source={require('../database/icons/like.png')} style={styles.icon} />
+              <Text style={styles.text}>{product.percentage}%</Text>
             </TouchableOpacity>
           </View>
-        </ImageBackground>
-      </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>{product.name}</Text>
-        <View style={styles.ratingContainer}>
-          <TouchableOpacity style={styles.chipContainer}>
-            <Image source={require('../database/icons/star.png')} style={styles.icon} />
-            <Text style={styles.text}>{product.rating}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.chipContainer}>
-            <Image source={require('../database/icons/like.png')} style={styles.icon} />
-            <Text style={styles.text}>{product.percentage}%</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.paragraph}>
-          {product.description}
-        </Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={styles.specifications}>Specifications</Text>
-          <Image
-            source={require('../database/icons/next.png')}
-            resizeMode="contain"
-            style={{
-              width: 20,
-              height: 20,
-            }}
-          />
-        </View>
-        <Separator />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={styles.reviews}>{product.numberOfReviews} reviews</Text>
-          <Image
-            source={require('../database/icons/next.png')}
-            resizeMode="contain"
-            style={{
-              width: 20,
-              height: 20,
-            }}
-          />
-        </View>
-        <Separator />
-        <View style={styles.flexButton}>
-          <View>
-            <Text style={styles.price}>${parseFloat(product.price.toString()).toFixed(2)}</Text>
-            <Text style={styles.delivery}>{product.deliveryTime}</Text>
+          <Text style={styles.paragraph}>
+            {product.description}
+          </Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={styles.specifications}>About the artist</Text>
+            <Image
+              source={require('../database/icons/next.png')}
+              resizeMode="contain"
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
           </View>
-          <Button
-            mode="contained"
-            style={styles.addButton}
-            contentStyle={styles.buttonContent}
-            labelStyle={styles.buttonText}
-            onPress={handleAddToCart}
+          <Separator />
+          {/* Options Dropdown */}
+          <Menu
+            visible={menuVisible}
+            onDismiss={closeMenu}
+            anchor={
+              <TouchableOpacity onPress={openMenu} style={styles.optionsContainer}>
+                <Text style={styles.reviews}>Options</Text>
+                <Image
+                  source={require('../database/icons/next.png')}
+                  resizeMode="contain"
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                />
+              </TouchableOpacity>
+            }
           >
-            Add to cart
-          </Button>
+            <Menu.Item onPress={() => handleOptionSelect('Size')} title="Version (Physical/ Digital/ Recreacted)" />
+            <Divider />
+            <Menu.Item onPress={() => handleOptionSelect('Framing')} title="Size" />
+            <Divider />
+            <Menu.Item onPress={() => handleOptionSelect('Version')} title="Framing" />
+          </Menu>
+          <Separator />
+          <View style={styles.flexButton}>
+            <View>
+              <Text style={styles.price}>${parseFloat(product.price.toString()).toFixed(2)}</Text>
+              <Text style={styles.delivery}>{product.deliveryTime}</Text>
+            </View>
+            <Button
+              mode="contained"
+              style={styles.addButton}
+              contentStyle={styles.buttonContent}
+              labelStyle={styles.buttonText}
+              onPress={handleAddToCart}
+            >
+              Add to cart
+            </Button>
+          </View>
         </View>
       </View>
-    </View>
+    </Provider>
   );
 };
 
@@ -137,8 +162,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   specifications: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 0.5,
     fontSize: 16,
     fontWeight: 'bold',
     color: "#424242"
@@ -154,11 +179,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   reviews: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 0.5,
+    marginBottom: 2,
     fontSize: 16,
     fontWeight: 'bold',
     color: "#424242"
+  },
+  optionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 10,
   },
   iconContainer: {
     width: 50,

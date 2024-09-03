@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList, Animated } from 'react-native';
-import { Text, Card, Button } from 'react-native-paper';
-
+import { Text, Card, Button, IconButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native'; 
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useTheme } from '../contexts/ThemeContext'; 
 
 const featuredImages = [
   {
@@ -16,12 +18,12 @@ const featuredImages = [
   },
   {
     uri: require('../database/images/image@2x-7.png'),
-    title: 'Ocean Breeze',
-    price: 320.15,
+    title: 'Mystical Abstract',
+    price: 250.10,
   },
   {
-    uri: require('../database/images/image@2x-8.png'),
-    title: 'Ocean Breeze',
+    uri: require('../database/images/image@2x-9.png'),
+    title: 'Ancient Sculptures',
     price: 320.15,
   },
 ];
@@ -43,7 +45,6 @@ const categories: Category[] = [
   { id: '4', title: 'Digital p..', image: require('../database/images/image@2x-3.png') },
   { id: '5', title: 'Pencil dr..', image: require('../database/images/image@2x-4.png') },
 ];
-
 
 const imagesByCategory: ImagesByCategory = {
   '1': [
@@ -79,7 +80,45 @@ const imagesByCategory: ImagesByCategory = {
   ],
 };
 
+const generateRandomName = () => {
+  const adjectives = ['Beautiful', 'Mystical', 'Ancient', 'Modern', 'Abstract', 'Elegant', 'Mysterious'];
+  const nouns = ['Landscape', 'Portrait', 'Fantasy', 'Harmony', 'Chaos', 'Inspiration', 'Elegance'];
+  const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+  return `${randomAdjective} ${randomNoun}`;
+};
+
+// Keep track of used names to ensure uniqueness
+const usedNames = new Set<string>();
+
+// Function to get a unique name
+const getUniqueName = () => {
+  let name = generateRandomName();
+  // Ensure name is unique
+  while (usedNames.has(name)) {
+    name = generateRandomName();
+  }
+  usedNames.add(name);
+  return name;
+};
+
+
+type RootStackParamList = {
+  Home: undefined;
+  CategoriesScreen: undefined;
+};
+
+// Use this type with StackNavigationProp
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
 const Home = () => {
+  const { isDarkMode, toggleTheme, theme } = useTheme();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const handleCategoryPress = (id: string) => {
+    setSelectedCategory(id);
+  };
   const scrollX = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList>(null);
   let currentIndex = 0;
@@ -93,18 +132,22 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const handleCategoryPress = (id: string) => {
-    setSelectedCategory(id);
-  }
+  const iconSource = theme.mode === 'light'
+  ? require('../database/icons/sun.png') // Replace with your light mode icon path
+  : require('../database/icons/moon.png'); 
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.deliveryContainer}>
         <Image source={require('../database/icons/gps.png')} resizeMode="contain" style={{ width: 25, height: 20 }} />
         <Text style={styles.locationText}>Delivery: 96744, Puulena St 74, Kaneohe, HI</Text>
-        <Image source={require('../database/icons/alarm-bell.png')} resizeMode="contain" style={{ width: 25, height: 25 }} />
+        <Image source={require('../database/icons/alarm-bell.png')} resizeMode="contain" style={{ width: 22, height: 22, marginRight: 5, marginLeft: -10 }} />
+        <TouchableOpacity onPress={toggleTheme}>
+        <Image
+          source={iconSource}
+          style={[styles.icon, { tintColor: theme.text }]}
+        />
+      </TouchableOpacity>
       </View>
 
       {/* <Card style={styles.featuredCard}>
@@ -142,7 +185,7 @@ const Home = () => {
               imageStyle={{ borderRadius: 8 }}
             >
               <View style={styles.cardContentOverlay}>
-                <Text variant="bodySmall" style={styles.herb}>Herbviore</Text>
+                {/* <Text variant="bodySmall" style={styles.herb}>Herbviore</Text> */}
                 <Text variant="titleLarge" style={styles.cardTitle}>{item.title}</Text>
                 <Text variant="bodyLarge" style={styles.cardPrice}>${item.price.toFixed(2)}</Text>
                 <Button textColor='white' style={styles.cardButton}>Add to Cart</Button>
@@ -153,7 +196,7 @@ const Home = () => {
       />
       <View style={styles.categoriesHeader}>
         <Text variant="titleLarge" style={{ fontWeight: 'bold', color: '#565656' }}>Popular art categories</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('CategoriesScreen')}>
           <Text style={{ color: '#3C6EEF', fontWeight: 'bold', marginLeft: 80 }}>See all</Text>
         </TouchableOpacity>
         <Image
@@ -179,19 +222,24 @@ const Home = () => {
       </View>
 
       <View style={styles.productsGrid}>
-        {(selectedCategory ? imagesByCategory[selectedCategory] : []).map((imageUrl, index) => (
-          <View key={index} style={styles.productContainer}>
-            <ImageBackground
-              source={{ uri: imageUrl }}
-              style={styles.productImage}
-              imageStyle={styles.imageBackground}
-            />
-            <View style={styles.productInfo}>
-              <Text style={styles.productName}>Artwork {index + 1}</Text>
-              <Text style={styles.productPrice}>$99.99</Text>
+      <View style={styles.productsGrid}>
+        {(selectedCategory ? imagesByCategory[selectedCategory] : []).map((imageUrl, index) => {
+          const productName = getUniqueName(); // Get a unique name for each artwork
+          return (
+            <View key={index} style={styles.productContainer}>
+              <ImageBackground
+                source={{ uri: imageUrl }}
+                style={styles.productImage}
+                imageStyle={styles.imageBackground}
+              />
+              <View style={styles.productInfo}>
+                <Text style={styles.productName}>{productName}</Text>
+                <Text style={styles.productPrice}>$190.00</Text>
+              </View>
             </View>
-          </View>
-        ))}
+          );
+        })}
+      </View>
       </View>
     </ScrollView>
   );
@@ -202,6 +250,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     padding: 24,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginBottom: 10,
+    marginRight: 30
   },
   locationText: {
      marginRight: 30,
@@ -221,7 +275,7 @@ const styles = StyleSheet.create({
   featuredCard: {
     marginBottom: 16,
     borderRadius: 20,
-    width: 340, // Adjust based on your desired card width
+    width: 346, // Adjust based on your desired card width
     marginHorizontal: 10,
   },
   cardCover: {
@@ -237,7 +291,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
-    color: '#C9D4D5',
+    color: '#F1F1F1',
   },
 
   categoryText: {
@@ -276,7 +330,7 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginBottom: 16,
   
   },
   // category: {
