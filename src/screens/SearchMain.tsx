@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Items } from '../database/constants';
+import { Items } from '../database/constants'; // Assume Items has artist, category, label, and price fields.
 import { StackParamList } from "../App";
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -12,23 +12,31 @@ type SearchScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Sea
 const SearchScreen = () => {
   const navigation = useNavigation<SearchScreenNavigationProp>();
   const { theme, isDarkMode, toggleTheme } = useTheme();
+
+  // States for search query and filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number | null>(null); // Set selected price filter
+  const [selectedArtist, setSelectedArtist] = useState<string | null>(null); // Set selected artist filter
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Set selected category filter
+  const [selectedLabel, setSelectedLabel] = useState<string | null>(null); // Set selected label filter
+
   // Apply dynamic styles based on theme
   const dynamicStyles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: isDarkMode ? '#000' : '#fff', // Black for dark mode, white for light mode
+      backgroundColor: isDarkMode ? '#000' : '#fff',
       padding: 20,
       paddingTop: 20,
     },
     searchBar: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: isDarkMode ? '#333' : '#f1f1f1', // Darker background for dark mode
+      backgroundColor: isDarkMode ? '#333' : '#f1f1f1',
       borderRadius: 14,
       padding: 10,
       marginBottom: 16,
       marginTop: 10,
-      width: 300,
+      width: 340,
     },
     searchInput: {
       fontSize: 15,
@@ -36,21 +44,21 @@ const SearchScreen = () => {
       flex: 1,
       height: 36,
       borderRadius: 40,
-      backgroundColor: isDarkMode ? '#333' : '#f1f1f1', // Darker input background for dark mode
-      color: isDarkMode ? '#fff' : '#000', // White text for dark mode, black text for light mode
+      backgroundColor: isDarkMode ? '#333' : '#f1f1f1',
+      color: isDarkMode ? '#fff' : '#000',
     },
     cardContent: {
-      backgroundColor: isDarkMode ? '#222' : '#fff', // Darker card background for dark mode
+      backgroundColor: isDarkMode ? '#000' : '#fff',
     },
     productName: {
       fontSize: 14,
       fontWeight: 'bold',
       marginBottom: 0,
-      color: isDarkMode ? '#fff' : '#000', // White text for dark mode, black text for light mode
+      color: isDarkMode ? '#fff' : '#000',
     },
     productPrice: {
       fontSize: 14,
-      color: isDarkMode ? '#ddd' : '#333', // Lighter text for dark mode
+      color: isDarkMode ? '#ddd' : '#333',
       fontWeight: 'normal',
     },
     detailsButton: {
@@ -61,13 +69,30 @@ const SearchScreen = () => {
     },
   });
 
- 
+  // Convert price string to a number safely
+  const parsePrice = (price: string) => {
+    const parsedPrice = parseFloat(price);
+    return isNaN(parsedPrice) ? 0 : parsedPrice;
+  };
 
-  // Ensure the theme object has a 'mode' property
-  const isLightMode = theme.mode === 'light';
-  const iconSource = theme.mode === 'light'
-  ? require('../database/icons/sun.png') // Replace with your light mode icon path
-  : require('../database/icons/moon.png'); 
+  // Extract unique artists, categories, and labels from Items (for filter buttons)
+  const uniqueArtists = [...new Set(Items.map(item => item.artist))];
+  const uniqueCategories = [...new Set(Items.map(item => item.category))];
+  const uniqueLabels = [...new Set(Items.map(item => item.label))];
+
+  // Filtering logic based on search query and selected filters
+  const filteredItems = Items.filter(item => {
+    const itemPrice = parsePrice(item.price);
+
+    const matchesQuery = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = 
+      (!selectedPriceRange || itemPrice <= selectedPriceRange) &&
+      (!selectedArtist || item.artist === selectedArtist) &&
+      (!selectedCategory || item.category === selectedCategory) &&
+      (!selectedLabel || item.label === selectedLabel);
+
+    return matchesQuery && matchesFilter;
+  });
 
   return (
     <View style={dynamicStyles.container}>
@@ -82,23 +107,73 @@ const SearchScreen = () => {
           }}
         />
         <View style={dynamicStyles.searchBar}>
-          <TextInput style={dynamicStyles.searchInput} placeholder="Search" placeholderTextColor={isDarkMode ? '#aaa' : '#000'} />
+          <TextInput
+            style={dynamicStyles.searchInput}
+            placeholder="Search"
+            placeholderTextColor={isDarkMode ? '#aaa' : '#000'}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
         </View>
-        <TouchableOpacity onPress={toggleTheme}>
-        <Image
-          source={iconSource}
-          style={[styles.icon, { tintColor: theme.text }]}
-        />
-      </TouchableOpacity>
+        {/* <TouchableOpacity onPress={toggleTheme}>
+          <Image
+            source={require('../database/icons/moon.png')} // Replace with appropriate icon
+            style={[styles.icon, { tintColor: theme.text }]}
+          />
+        </TouchableOpacity> */}
       </View>
+
+      {/* Filter Buttons */}
       <View style={styles.filters}>
-        <Button mode="contained" style={dynamicStyles.detailsButton}>Price</Button>
-        <Button mode="contained" style={dynamicStyles.detailsButton}>Artist</Button>
-        <Button mode="contained" style={dynamicStyles.detailsButton}>Category</Button>
-        <Button mode="contained" style={dynamicStyles.detailsButton}>Label</Button>
+        {/* Price Filter Button */}
+        {/* <Button
+          mode={selectedPriceRange === 100 ? 'contained' : 'outlined'}
+          style={dynamicStyles.detailsButton}
+          onPress={() => setSelectedPriceRange(100)}
+        >
+          Price
+        </Button> */}
+
+        {/* Artist Filter Buttons */}
+        {/* {uniqueArtists.map(artist => (
+          <Button
+            key={artist}
+            mode={selectedArtist === artist ? 'contained' : 'outlined'}
+            style={dynamicStyles.detailsButton}
+            onPress={() => setSelectedArtist(artist)}
+          >
+            Artist
+          </Button>
+        ))} */}
+
+        {/* Category Filter Buttons */}
+        {/* {uniqueCategories.map(category => (
+          // <Button
+          //   key={category}
+          //   mode={selectedCategory === category ? 'contained' : 'outlined'}
+          //   style={dynamicStyles.detailsButton}
+          //   onPress={() => setSelectedCategory(category)}
+          // >
+          //   Category
+          // </Button>
+        ))} */}
+
+        {/* Label Filter Buttons */}
+        {uniqueLabels.map(label => (
+          <Button
+            key={label}
+            mode={selectedLabel === label ? 'contained' : 'outlined'}
+            style={dynamicStyles.detailsButton}
+            onPress={() => setSelectedLabel(label)}
+          >
+            {label}
+          </Button>
+        ))}
       </View>
+
+      {/* Filtered Items List */}
       <FlatList
-        data={Items}
+        data={filteredItems}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         columnWrapperStyle={styles.row}
@@ -134,6 +209,7 @@ const styles = StyleSheet.create({
   },
   filters: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: 22,
   },
@@ -144,11 +220,12 @@ const styles = StyleSheet.create({
   productCard: {
     width: '48%',
     borderRadius: 16,
-    shadowColor: 'transparent',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    elevation: 0,
+    shadowColor: 'black',
+    backgroundColor: 'black'
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowOpacity: 0,
+    // shadowRadius: 0,
+    // elevation: 0,
   },
   productImage: {
     height: 190,

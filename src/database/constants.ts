@@ -18,7 +18,10 @@ export const Items = [
         percentage: 76,
         numberOfReviews: 390,
         deliveryTime: '2-5 days',
-        image: 'https://artfilemagazine.com/wp-content/uploads/2022/12/Famous-Oil-Paintings-to-Know.jpg'
+        image: 'https://artfilemagazine.com/wp-content/uploads/2022/12/Famous-Oil-Paintings-to-Know.jpg',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Physical Art',
     },
     {
         id: '2',
@@ -29,7 +32,10 @@ export const Items = [
         percentage: 76,
         numberOfReviews: 390,
         deliveryTime: '2-5 days',
-        image: 'https://i2.wp.com/zet.gallery/blog/wp-content/uploads/2016/02/Vicent-Van-Gogh-Starry-Night-Famous-Oil-Paintings-www.shairart.com_.jpg?fit=1280%2C1014'
+        image: 'https://i2.wp.com/zet.gallery/blog/wp-content/uploads/2016/02/Vicent-Van-Gogh-Starry-Night-Famous-Oil-Paintings-www.shairart.com_.jpg?fit=1280%2C1014',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Digital Art',
     },
     {
         id: '3',
@@ -40,7 +46,10 @@ export const Items = [
         percentage: 76,
         numberOfReviews: 390,
         deliveryTime: '2-5 days',
-        image: 'https://cdn.openart.ai/uploads/image_iwH65Ivm_1702800672854_raw.jpg'
+        image: 'https://cdn.openart.ai/uploads/image_iwH65Ivm_1702800672854_raw.jpg',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Recreated',
     },
     {
         id: '4',
@@ -51,7 +60,10 @@ export const Items = [
         percentage: 76,
         numberOfReviews: 390,
         deliveryTime: '2-5 days',
-        image: 'https://theartofeducation.edu/wp-content/uploads/2019/02/Photo-10.jpg'
+        image: 'https://theartofeducation.edu/wp-content/uploads/2019/02/Photo-10.jpg',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Digital Art',
     },
     {
         id: '5',
@@ -62,7 +74,10 @@ export const Items = [
         percentage: 88,
         numberOfReviews: 420,
         deliveryTime: '2-5 days',
-        image: 'https://i.pinimg.com/736x/16/d9/de/16d9debacf2f56c525d9f38dc7aa0fe0.jpg'
+        image: 'https://i.pinimg.com/736x/16/d9/de/16d9debacf2f56c525d9f38dc7aa0fe0.jpg',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Digital Art',
     },
     {
         id: '6',
@@ -73,7 +88,10 @@ export const Items = [
         percentage: 76,
         numberOfReviews: 390,
         deliveryTime: '2-5 days',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgLj6k05wlFnT68gDM3cnZTBJuuhmo47aIhQ&s'
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgLj6k05wlFnT68gDM3cnZTBJuuhmo47aIhQ&s',
+        category: 'bjnjn',
+        artist: 'hbhjbk',
+        label: 'Physical Art',
     },
 
 
