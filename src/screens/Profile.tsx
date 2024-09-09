@@ -1,64 +1,208 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme hook
 
 const ProfileScreen = () => {
-  const { theme, toggleTheme } = useTheme(); // Use theme context
-  const isLightMode = theme.mode === 'light';
-
+  const { theme } = useTheme(); // Use theme context
   const user = {
     profilePicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxctjU21pUENIsGN1F4qY21P7GfdEbhTMp2g&s',
-    username: 'Ayaka Kimble',
-    email: 'ayakakimble@gamil.com',
-    phone: '+123456789',
-    location: 'Calgary, Alberta, Canada',
-    accountType: 'Buyer',
-    verificationStatus: 'Verified',
-    membershipLevel: 'Gold Member',
+    username: 'Ayaka Kimblle',
   };
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.ProfileText, { color: theme.text }]}>Profile</Text>
-      <View style={styles.profileContainer}>
+      {/* Custom Top Section */}
+      <View style={styles.gridContainer}>
+        <Image
+          source={require('../database/icons/menu.png')}
+          resizeMode="contain"
+          style={{
+            width: 30,
+            height: 30,
+            tintColor: '#FFFFFF'
+          }}
+        />
+         <View style={styles.logoContainer}>
+          <Text style={styles.logoText}>Behold</Text>
+          <Text style={styles.subLogoText}>World Art Exchange</Text>
+        </View>
+        <View>
+        <Image source={require('../database/icons/alarm-bell.png')} resizeMode="contain" style={{  width: 30,
+            height: 30,
+            tintColor: '#FFFFFF' }} />
+        </View>
+      </View>
+
+
+      {/* Profile Section */}
+      <View style={styles.headerContainer}>
         <Image source={{ uri: user.profilePicture }} style={styles.profileImage} />
-        <Text style={[styles.username, { color: theme.text }]}>{user.username}</Text>
+        <TouchableOpacity style={styles.editIconContainer}>
+          {/* <Icon name="edit" size={18} color="#fff" /> */}
+        </TouchableOpacity>
+        <Text style={[styles.username, { color: '#FFFFFF' }]}>{user.username}</Text>
       </View>
 
-      <View style={styles.accountContainer}>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Email:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.email}</Text>
+      {/* Tabs (Settings and Following) */}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={[styles.tabText, styles.activeTabText]}>Settings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={styles.tabText}>Following (10)</Text>
+        </TouchableOpacity>
+      </View>
+      {/* Account Section */}
+      <View style={styles.sectionContainer}>
+        <Text style={[styles.sectionHeader, { color: theme.text }]}>Account</Text>
+
+        {/* Card-like TouchableOpacity */}
+        <View style={styles.card}>
+          <TouchableOpacity style={styles.sectionRow}>
+            {/* <Icon name="person" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/user.png')}
+          resizeMode="contain"
+          style={{
+            width: 25,
+            height: 25,
+            tintColor: '#FFFFFF'
+          }}
+        />
+            <Text style={[styles.sectionText, { color: theme.text }]}>Edit Profile Information</Text>
+            <Image
+          source={require('../database/icons/next.png')}
+          resizeMode="contain"
+          style={{
+            width: 20,
+            height: 20,
+            tintColor: '#FFFFFF',
+          }}
+        />
+          </TouchableOpacity>
         </View>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Phone:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.phone}</Text>
+
+        <View style={styles.card}>
+          <TouchableOpacity style={styles.sectionRow}>
+            {/* <Icon name="lock" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/padlock.png')}
+          resizeMode="contain"
+          style={{
+            width: 24,
+            height: 22,
+            tintColor: '#FFFFFF'
+          }}
+        />
+            <Text style={[styles.sectionText, { color: theme.text }]}>Change Password</Text>
+            {/* <Icon name="chevron-right" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/next.png')}
+          resizeMode="contain"
+          style={{
+            width: 20,
+            height: 20,
+            tintColor: '#FFFFFF',
+          }}
+        />
+          </TouchableOpacity>
         </View>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Location:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.location}</Text>
+
+        <View style={styles.card}>
+          <TouchableOpacity style={styles.sectionRow}>
+            {/* <Icon name="security" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/authentic.png')}
+          resizeMode="contain"
+          style={{
+            width: 25,
+            height: 25,
+            tintColor: '#FFFFFF'
+          }}
+        />
+            <Text style={[styles.sectionText, { color: theme.text }]}>2FA Authentication</Text>
+            <Text style={styles.notActiveText}>Not Active</Text>
+            {/* <Icon name="chevron-right" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/next.png')}
+          resizeMode="contain"
+          style={{
+            width: 20,
+            height: 20,
+            tintColor: '#FFFFFF'
+          }}
+        />
+          </TouchableOpacity>
         </View>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Account Type:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.accountType}</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Verification Status:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.verificationStatus}</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={[styles.label, { color: theme.text }]}>Membership Level:</Text>
-          <Text style={[styles.value, { color: theme.text }]}>{user.membershipLevel}</Text>
+
+        <View style={styles.card}>
+          <TouchableOpacity style={styles.sectionRow}>
+            {/* <Icon name="account-balance-wallet" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/house.png')}
+          resizeMode="contain"
+          style={{
+            width: 25,
+            height: 22,
+            tintColor: '#FFFFFF'
+          }}
+        />
+            <Text style={[styles.sectionText, { color: theme.text }]}>Earn from Behold</Text>
+            {/* <Icon name="chevron-right" size={24} color="#757575" /> */}
+            <Image
+          source={require('../database/icons/next.png')}
+          resizeMode="contain"
+          style={{
+            width: 20,
+            height: 20,
+            tintColor: '#FFFFFF'
+          }}
+        />
+          </TouchableOpacity>
         </View>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Edit Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.logoutButton]}>
-          <Text style={styles.buttonText}>Log Out</Text>
-        </TouchableOpacity>
+      {/* Notifications Section */}
+      <View style={styles.sectionContainer}>
+      <Text style={[styles.header, { color: theme.text }]}>Notifications</Text>
+
+{/* Show all notifications setting */}
+<View style={styles.settingRow}>
+  <View style={styles.textContainer}>
+    <Text style={[styles.title, { color: theme.text }]}>Show all notifications</Text>
+    <Text style={styles.description}>
+      All types of notifications will be shown.
+    </Text>
+  </View>
+  <Image
+          source={require('../database/icons/switch.png')}
+          resizeMode="contain"
+          style={{
+            width: 70,
+            height: 55,
+            tintColor: '#7BEE92'
+          }}
+        />
+</View>
+
+{/* Notify New Post setting */}
+<View style={styles.settingRow}>
+  <View style={styles.textContainer}>
+    <Text style={[styles.title, { color: theme.text }]}>Notify New Post</Text>
+    <Text style={styles.description}>
+      Notification will be given when followed artists post new artwork.
+    </Text>
+  </View>
+  <Image
+          source={require('../database/icons/switchOff.png')}
+          resizeMode="contain"
+          style={{
+            width: 70,
+            height: 55,
+            tintColor: '#FFFFFF'
+          }}
+        />
+</View>
       </View>
     </ScrollView>
   );
@@ -68,60 +212,134 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
-  ProfileText: {
-    marginTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  profileContainer: {
+  gridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
+  },
+  topSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#111', // Dark background for the header
+  },
+  menuIconContainer: {
+    padding: 5,
+  },
+  notificationIconContainer: {
+    padding: 5,
+  },
+  logoContainer: {
+    alignItems: 'center',
+  },
+  logoText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  subLogoText: {
+    fontSize: 10,
+    color: '#ccc',
+  },
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 10
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 130,
+    height: 130,
+    borderRadius: 68,
+    marginTop: 12,
     marginBottom: 10,
+    
+  },
+  editIconContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 110, // Position the edit icon over the profile image
+    backgroundColor: '#2f89fc',
+    borderRadius: 12,
+    padding: 4,
   },
   username: {
     fontSize: 20,
-    fontWeight: '600',
-    fontFamily: 'Poppins-Regular',
+    fontWeight: 'bold',
   },
-  accountContainer: {
-    marginTop: 40,
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 16,
+    marginBottom: 30,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  tabItem: {
+    paddingBottom: 10,
+  },
+  tabText: {
+    fontSize: 16,
+    color: '#757575',
+  },
+  activeTabText: {
+    color: '#757575',
+    borderBottomWidth: 2,
+    borderBottomColor: '#7BEE92',
+  },
+  sectionContainer: {
     marginBottom: 30,
   },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  sectionHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  card: {
+    backgroundColor: '#222',
+    padding: 6,
+    borderRadius: 6,
     marginBottom: 10,
   },
-  label: {
-    fontSize: 16,
+  sectionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 15,
   },
-  value: {
+  sectionText: {
+    fontSize: 16,
+    flex: 1,
+    marginLeft: 10,
+  },
+  notActiveText: {
+    fontSize: 14,
+    color: '#757575',
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  settingRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  textContainer: {
+    flex: 1,
+    marginRight: 20,
+  },
+  title: {
     fontSize: 16,
     fontWeight: '500',
   },
-  buttonContainer: {
-    marginTop: 120,
-  },
-  button: {
-    backgroundColor: '#3C6EEF',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  logoutButton: {
-    backgroundColor: '#FF3B30',
+  description: {
+    fontSize: 14,
+    color: '#A9A9A9',
+    marginTop: 5,
   },
 });
 

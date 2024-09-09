@@ -65,7 +65,9 @@ const SearchScreen = () => {
       borderRadius: 20,
       borderColor: isDarkMode ? '#444' : '#F4F5F6',
       backgroundColor: isDarkMode ? '#444' : '#F6F5F4',
-      color: isDarkMode ? '#fff' : '#000',
+    },
+    buttonLabel: {
+      color: isDarkMode ? '#fff' : '#000', // White text in dark mode, black in light mode
     },
   });
 
@@ -115,55 +117,16 @@ const SearchScreen = () => {
             onChangeText={setSearchQuery}
           />
         </View>
-        {/* <TouchableOpacity onPress={toggleTheme}>
-          <Image
-            source={require('../database/icons/moon.png')} // Replace with appropriate icon
-            style={[styles.icon, { tintColor: theme.text }]}
-          />
-        </TouchableOpacity> */}
       </View>
 
       {/* Filter Buttons */}
       <View style={styles.filters}>
-        {/* Price Filter Button */}
-        {/* <Button
-          mode={selectedPriceRange === 100 ? 'contained' : 'outlined'}
-          style={dynamicStyles.detailsButton}
-          onPress={() => setSelectedPriceRange(100)}
-        >
-          Price
-        </Button> */}
-
-        {/* Artist Filter Buttons */}
-        {/* {uniqueArtists.map(artist => (
-          <Button
-            key={artist}
-            mode={selectedArtist === artist ? 'contained' : 'outlined'}
-            style={dynamicStyles.detailsButton}
-            onPress={() => setSelectedArtist(artist)}
-          >
-            Artist
-          </Button>
-        ))} */}
-
-        {/* Category Filter Buttons */}
-        {/* {uniqueCategories.map(category => (
-          // <Button
-          //   key={category}
-          //   mode={selectedCategory === category ? 'contained' : 'outlined'}
-          //   style={dynamicStyles.detailsButton}
-          //   onPress={() => setSelectedCategory(category)}
-          // >
-          //   Category
-          // </Button>
-        ))} */}
-
-        {/* Label Filter Buttons */}
         {uniqueLabels.map(label => (
           <Button
             key={label}
             mode={selectedLabel === label ? 'contained' : 'outlined'}
             style={dynamicStyles.detailsButton}
+            labelStyle={dynamicStyles.buttonLabel} // Apply labelStyle to ensure white text in dark mode
             onPress={() => setSelectedLabel(label)}
           >
             {label}
@@ -200,13 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  icon: {
-    width: 20,
-    height: 20,
-    marginBottom: 10,
-    marginRight: 16,
-    marginLeft: 16
-  },
   filters: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -221,11 +177,7 @@ const styles = StyleSheet.create({
     width: '48%',
     borderRadius: 16,
     shadowColor: 'black',
-    backgroundColor: 'black'
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowOpacity: 0,
-    // shadowRadius: 0,
-    // elevation: 0,
+    backgroundColor: 'black',
   },
   productImage: {
     height: 190,
