@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   productsContainer: {
     width: '48%',  
     marginBottom: 16,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: '#E0E0E0',
     overflow: 'hidden',
   },

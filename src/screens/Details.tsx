@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 0.5,
     fontSize: 16,
     fontWeight: 'bold',
-    color: "#424242"
+    color: "#FFFFFF"
   },
   overlay: {
     position: 'absolute',
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     fontSize: 16,
     fontWeight: 'bold',
-    color: "#424242"
+    color: "#FFFFFF"
   },
   optionsContainer: {
     flexDirection: 'row',
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     marginTop: 26,
     fontSize: 20,
     fontWeight: 'bold',
-    color: "#424242",
+    color: "#FFFFFF",
   },
   imageContainer: {
     alignItems: 'center',
@@ -259,19 +259,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: "#424242",
+    color: "#FFFFFF",
   },
   paragraph: {
     marginBottom: 10,
     marginTop: 14,
     fontSize: 14.5,
-    color: '#424242',
+    color: '#FFFFFF',
     lineHeight: 19,
     fontWeight: '600',
   },
   delivery: {
     marginBottom: 10,
     fontSize: 14,
+    color: '#FFFFFF'
   },
   addButton: {
     backgroundColor: '#3C6EEF',

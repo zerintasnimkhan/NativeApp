@@ -13,7 +13,7 @@ export const Items = [
         id: '1',
         name: 'Napolean Adventures',
         price: '470.80',
-        description: 'This captures the bold spirit and daring exploits of Napoleon through vibrant colors and dynamic strokes. The artwork brings to life a tale of ambition.s',
+        description: 'This captures the bold spirit and daring exploits of Napoleon through vibrant colors and dynamic strokes. The artwork brings to life a tale of ambition.',
         rating: 4.3,
         percentage: 76,
         numberOfReviews: 390,
