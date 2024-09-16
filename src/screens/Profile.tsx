@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme hook
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const ProfileScreen = () => {
+// Define the types for your navigation stack
+type RootStackParamList = {
+  Profile: undefined;
+  EarnFromBehold: undefined; // Add other routes if needed
+};
+
+// Define the navigation prop type for this screen
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
+
+interface Props {
+  navigation: ProfileScreenNavigationProp;
+}
+const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const { theme } = useTheme(); // Use theme context
   const [activeTab, setActiveTab] = useState('Settings'); // State for active tab
 
@@ -207,7 +220,8 @@ const ProfileScreen = () => {
         </View>
 
         <View style={styles.card}>
-          <TouchableOpacity style={styles.sectionRow}>
+          <TouchableOpacity style={styles.sectionRow}
+           onPress={() => navigation.navigate('EarnFromBehold')}>
             {/* <Icon name="account-balance-wallet" size={24} color="#757575" /> */}
             <Image
           source={require('../database/icons/house.png')}

@@ -16,6 +16,7 @@ import Profile from './screens/Profile';
 import Cart from './screens/Cart';
 import CategoriesScreen from './screens/CategoriesScreen';
 import CategoryDetailScreen from './screens/CategoryDetails';
+import EarnFromBeholdScreen from './screens/EarnFromBeholdScreen';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
@@ -25,6 +26,8 @@ export type StackParamList = {
   Details: { product: { id: string; name: string; price: string; image: string } };
   Cart: undefined;
   CategoryDetail: undefined;
+  Profile: undefined;
+  EarnFromBehold: undefined;
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -66,6 +69,21 @@ const SearchStackNavigator = () => (
   </Stack.Navigator>
 );
 
+const ProfileStackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen 
+      name="Profile" 
+      component={Profile} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="EarnFromBehold" 
+      component={EarnFromBeholdScreen}  // Add EarnFromBehold screen here
+      options={{ headerShown: false }} 
+    />
+  </Stack.Navigator>
+);
+
 const MainTabs = () => {
   // Use theme context to apply dark mode or light mode styles
   const { isDarkMode, theme } = useTheme(); 
@@ -101,7 +119,7 @@ const MainTabs = () => {
               />
               <Text
                 style={{
-                  color: focused ? (isDarkMode ? '#FFFFFF' : '#3C6EEF') : (isDarkMode ? '#AAAAAA' : '#A9A9A9'),// Dynamic text color
+                   color: focused ? (isDarkMode ? '#FFFFFF' : '#3C6EEF') : (isDarkMode ? '#AAAAAA' : '#A9A9A9'),// Dynamic text color
                   fontSize: 12,
                   fontWeight: '800',
                   marginTop: 6,
@@ -205,7 +223,7 @@ const MainTabs = () => {
       />
       <Tab.Screen 
         name="Profile" 
-        component={Profile}
+        component={ProfileStackNavigator}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
