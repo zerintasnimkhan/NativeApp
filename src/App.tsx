@@ -17,6 +17,9 @@ import Cart from './screens/Cart';
 import CategoriesScreen from './screens/CategoriesScreen';
 import CategoryDetailScreen from './screens/CategoryDetails';
 import EarnFromBeholdScreen from './screens/EarnFromBeholdScreen';
+import ArtCategoriesScreen from './screens/SelectArtCategories';
+import AboutYouScreen from './screens/AboutYouScreen';
+import AddStoryScreen from './screens/AddStoryScreen';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
@@ -28,6 +31,9 @@ export type StackParamList = {
   CategoryDetail: undefined;
   Profile: undefined;
   EarnFromBehold: undefined;
+  SelectArtCategories: undefined;
+  AboutYouScreen: undefined;
+  AddStoryScreen: undefined
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -78,7 +84,22 @@ const ProfileStackNavigator = () => (
     />
     <Stack.Screen 
       name="EarnFromBehold" 
-      component={EarnFromBeholdScreen}  // Add EarnFromBehold screen here
+      component={EarnFromBeholdScreen} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="SelectArtCategories" 
+      component={ArtCategoriesScreen}  
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="AboutYouScreen" 
+      component={AboutYouScreen}  
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="AddStoryScreen" 
+      component={AddStoryScreen} 
       options={{ headerShown: false }} 
     />
   </Stack.Navigator>

@@ -5,7 +5,9 @@ import { StackNavigationProp } from '@react-navigation/stack'; // Import this fo
 // Define your navigation stack params
 type RootStackParamList = {
   Profile: undefined;
-  EarnFromBehold: undefined; // This is the screen for EarnFromBehold
+  EarnFromBehold: undefined; 
+  SelectArtCategories: undefined;
+  AboutYouScreen: undefined;
 };
 
 // Define the navigation prop type for this screen
@@ -22,7 +24,7 @@ const EarnFromBeholdScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.backText}> Earn from Behold</Text>
       </TouchableOpacity>
       <View style={styles.iconContainer}>
-        <Image source={require('../database/icons/brush.png')} style={styles.icon} />
+        <Image source={{ uri: 'https://e7.pngegg.com/pngimages/255/465/png-clipart-palette-computer-icons-watercolor-painting-painter-painting-watercolor-painting-text.png'}} style={styles.icon} />
       </View>
       <Text style={styles.title}>Start your artist journey</Text>
       <Text style={styles.description}>
@@ -35,7 +37,8 @@ const EarnFromBeholdScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.perkItem}>✓ Earn from marketplace</Text>
         <Text style={styles.perkItem}>✓ Protect and manage your artwork copyrights</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => { /* Handle navigation or actions here */ }}>
+      <TouchableOpacity style={styles.button} 
+       onPress={() => navigation.navigate('SelectArtCategories')} >
         <Text style={styles.buttonText}>Let's Go</Text>
       </TouchableOpacity>
     </View>
@@ -50,29 +53,40 @@ const styles = StyleSheet.create({
   },
   backText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 22,
+    fontWeight: '600',
+    marginTop: 10,
     marginBottom: 20,
+    textAlign: 'center'
   },
   iconContainer: {
     alignItems: 'center',
     marginVertical: 20,
+    color: '#000',
+    backgroundColor: '#000000',
+    marginTop: 30,
+    marginBottom: 50
   },
   icon: {
-    width: 100,
-    height: 100,
+    width: 140,
+    height: 140,
+    borderRadius: 80,
+    backgroundColor: '#000'
   },
   title: {
     color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 20,
+    marginTop: 10
   },
   description: {
     color: '#fff',
     fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 30,
+    textAlign: 'left',
+    marginBottom: 36,
+  
   },
   perksTitle: {
     color: '#fff',
@@ -84,16 +98,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   perkItem: {
-    color: '#0f0',
+    color: '#7BEE92',
     fontSize: 16,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: '#00ff00',
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: '#7BEE92',
+    padding: 12,
+    borderRadius: 5,
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 80,
   },
   buttonText: {
     color: '#000',
