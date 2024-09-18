@@ -24,7 +24,7 @@ const EarnFromBeholdScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.backText}> Earn from Behold</Text>
       </TouchableOpacity>
       <View style={styles.iconContainer}>
-        <Image source={{ uri: 'https://e7.pngegg.com/pngimages/255/465/png-clipart-palette-computer-icons-watercolor-painting-painter-painting-watercolor-painting-text.png'}} style={styles.icon} />
+      <Image source={require('../database/images/colorpalatte.png')} style={styles.icon} />
       </View>
       <Text style={styles.title}>Start your artist journey</Text>
       <Text style={styles.description}>
@@ -32,11 +32,35 @@ const EarnFromBeholdScreen: React.FC<Props> = ({ navigation }) => {
       </Text>
       <Text style={styles.perksTitle}>Perks of an Artist</Text>
       <View style={styles.perksList}>
-        <Text style={styles.perkItem}>✓ Upload your own artworks</Text>
-        <Text style={styles.perkItem}>✓ Get discovered as an artist in community</Text>
-        <Text style={styles.perkItem}>✓ Earn from marketplace</Text>
-        <Text style={styles.perkItem}>✓ Protect and manage your artwork copyrights</Text>
-      </View>
+  <View style={styles.perkItem}>
+    <View style={styles.tickCircle}>
+      <Text style={styles.tickMark}>✓</Text>
+    </View>
+    <Text style={styles.perkText}>Upload your own artworks</Text>
+  </View>
+
+  <View style={styles.perkItem}>
+    <View style={styles.tickCircle}>
+      <Text style={styles.tickMark}>✓</Text>
+    </View>
+    <Text style={styles.perkText}>Get discovered as an artist in community</Text>
+  </View>
+
+  <View style={styles.perkItem}>
+    <View style={styles.tickCircle}>
+      <Text style={styles.tickMark}>✓</Text>
+    </View>
+    <Text style={styles.perkText}>Earn from marketplace</Text>
+  </View>
+
+  <View style={styles.perkItem}>
+    <View style={styles.tickCircle}>
+      <Text style={styles.tickMark}>✓</Text>
+    </View>
+    <Text style={styles.perkText}>Protect and manage your artwork copyrights</Text>
+  </View>
+</View>
+
       <TouchableOpacity style={styles.button} 
        onPress={() => navigation.navigate('SelectArtCategories')} >
         <Text style={styles.buttonText}>Let's Go</Text>
@@ -68,8 +92,8 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   icon: {
-    width: 140,
-    height: 140,
+    width: 150,
+    height: 150,
     borderRadius: 80,
     backgroundColor: '#000'
   },
@@ -78,28 +102,48 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop: 10
   },
   description: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'left',
-    marginBottom: 36,
+    marginBottom: 26,
   
+  },
+  perksList: {
+    marginTop: 20,
+  },
+  perkItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  tickCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#7BEE92', // Green border for the circle
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black', // Black background inside the circle
+    marginRight: 10, // Space between the circle and text
+  },
+  tickMark: {
+    color: '#7BEE92', // Green tick mark
+    fontSize: 10,
+    fontWeight: 'medium',
+  },
+  perkText: {
+    color: '#fff', // White text color
+    fontSize: 14,
   },
   perksTitle: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  perksList: {
-    marginBottom: 20,
-  },
-  perkItem: {
-    color: '#7BEE92',
     fontSize: 16,
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   button: {
@@ -107,7 +151,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
-    marginTop: 80,
+    marginTop: 90,
   },
   buttonText: {
     color: '#000',

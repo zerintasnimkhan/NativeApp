@@ -38,7 +38,7 @@ const AddStoryScreen: React.FC<Props> =  ({ navigation }) => {
       {/* Add Story Section */}
       <TouchableOpacity style={styles.addStoryButton}>
         {/* <Ionicons name="add-circle-outline" size={24} color="green" /> */}
-        <Text style={styles.addStoryText}>Add Story</Text>
+        <Text style={styles.addStoryText}> +    Add Story</Text>
       </TouchableOpacity>
     </View>
   );
@@ -60,12 +60,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 30,
+    marginTop: 20
   },
   progressBar: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 34,
-    marginTop: 22
+    marginTop: 50
   },
   progressSegment: {
     height: 4,
@@ -88,21 +89,22 @@ const styles = StyleSheet.create({
     color: '#999',
     fontSize: 16,
     textAlign: 'left',
-    marginBottom: 50,
+    marginBottom: 30,
   },
   addStoryButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'green',
+    borderColor: '#C0C0C0',
     borderWidth: 1,
-    borderRadius: 10,
-    padding: 15,
+    borderRadius: 6,
+    padding: 12,
     marginBottom: 20,
   },
   addStoryText: {
-    color: 'green',
-    fontSize: 16,
+    color: '#7BEE92',
+    fontSize: 15,
+    fontWeight: '600',
     marginLeft: 10,
   },
   disabledNextButton: {

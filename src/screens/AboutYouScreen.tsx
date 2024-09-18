@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 34,
-    marginTop: 22
+
   },
   progressSegment: {
     height: 4,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderRadius: 5,
     padding: 10,
-    height: 160,
+    height: 180,
     textAlignVertical: 'top',
     marginBottom: 20,
   },
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1a1a1a',
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
   },
