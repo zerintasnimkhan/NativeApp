@@ -20,9 +20,12 @@ interface Props {
 const EarnFromBeholdScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <View style={styles.headerContainer}>
+      {/* <TouchableOpacity onPress={() => navigation.goBack()}> */}
+      <Image source={require('../database/images/backarrow.png')} />
         <Text style={styles.backText}> Earn from Behold</Text>
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
+      </View>
       <View style={styles.iconContainer}>
       <Image source={require('../database/images/colorpalatte.png')} style={styles.icon} />
       </View>
@@ -75,13 +78,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     padding: 20,
   },
+  headerContainer: {
+    flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+  },
   backText: {
     color: '#fff',
     fontSize: 22,
     fontWeight: '600',
-    marginTop: 10,
-    marginBottom: 20,
-    textAlign: 'center'
+    marginRight: 100,
+    marginBottom: 40
+
   },
   iconContainer: {
     alignItems: 'center',
@@ -89,12 +97,12 @@ const styles = StyleSheet.create({
     color: '#000',
     backgroundColor: '#000000',
     marginTop: 30,
-    marginBottom: 50
+    marginBottom: 30
   },
   icon: {
-    width: 150,
-    height: 150,
-    borderRadius: 80,
+    width: 172,
+    height: 172,
+    borderRadius: 100,
     backgroundColor: '#000'
   },
   title: {
@@ -103,13 +111,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     marginBottom: 10,
-    marginTop: 10
   },
   description: {
     color: '#fff',
     fontSize: 14,
     textAlign: 'left',
-    marginBottom: 26,
+    marginTop: 10,
+    marginBottom: 52,
   
   },
   perksList: {
@@ -143,8 +151,7 @@ const styles = StyleSheet.create({
   perksTitle: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontWeight: 'bold'
   },
   button: {
     backgroundColor: '#7BEE92',
