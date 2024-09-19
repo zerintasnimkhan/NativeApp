@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Modal, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 interface CustomModalProps {
   visible: boolean;
@@ -7,9 +7,9 @@ interface CustomModalProps {
   onConfirm: () => void;
   onCancel: () => void;
   children: ReactNode;
-  closeIcon: ReactNode;     // Icon for the close button
-  confirmIcon: ReactNode;   // Icon for the confirm button
-  cancelIcon: ReactNode;    // Icon for the cancel button
+  closeIcon: ReactNode | string;   // Accept string or element
+  confirmIcon: ReactNode | string;
+  cancelIcon: ReactNode | string;
 }
 
 const CustomModal: React.FC<CustomModalProps> = ({
@@ -33,7 +33,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
         <View style={styles.modalContent}>
           {/* Close Icon */}
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            {closeIcon} {/* Use closeIcon prop */}
+            {typeof closeIcon === 'string' ? <Text>{closeIcon}</Text> : closeIcon}
           </TouchableOpacity>
 
           {/* Content Section */}
@@ -44,10 +44,10 @@ const CustomModal: React.FC<CustomModalProps> = ({
           {/* Buttons */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.yesButton} onPress={onConfirm}>
-              {confirmIcon} {/* Use confirmIcon prop */}
+              {typeof confirmIcon === 'string' ? <Text>{confirmIcon}</Text> : confirmIcon}
             </TouchableOpacity>
             <TouchableOpacity style={styles.noButton} onPress={onCancel}>
-              {cancelIcon} {/* Use cancelIcon prop */}
+              {typeof cancelIcon === 'string' ? <Text>{cancelIcon}</Text> : cancelIcon}
             </TouchableOpacity>
           </View>
         </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modalContent: {
     width: 300,
@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#77e68c',
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 46,
   },
   noButton: {
     backgroundColor: '#fff',
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 46,
   },
 });
 

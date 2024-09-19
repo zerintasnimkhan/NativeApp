@@ -20,6 +20,8 @@ import EarnFromBeholdScreen from './screens/EarnFromBeholdScreen';
 import ArtCategoriesScreen from './screens/SelectArtCategories';
 import AboutYouScreen from './screens/AboutYouScreen';
 import AddStoryScreen from './screens/AddStoryScreen';
+import PlayExhibitionScreen from './screens/PlayExhibitionScreen';
+import FavoritesScreen from './screens/Favorites';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
@@ -33,7 +35,9 @@ export type StackParamList = {
   EarnFromBehold: undefined;
   SelectArtCategories: undefined;
   AboutYouScreen: undefined;
-  AddStoryScreen: undefined
+  AddStoryScreen: undefined;
+  Favorites: undefined;
+  PlayExhibitionScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -100,6 +104,21 @@ const ProfileStackNavigator = () => (
     <Stack.Screen 
       name="AddStoryScreen" 
       component={AddStoryScreen} 
+      options={{ headerShown: false }} 
+    />
+  </Stack.Navigator>
+);
+
+const FavoritesStackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen 
+      name="Favorites" 
+      component={FavoritesScreen} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="PlayExhibitionScreen" 
+      component={PlayExhibitionScreen} 
       options={{ headerShown: false }} 
     />
   </Stack.Navigator>
@@ -184,7 +203,7 @@ const MainTabs = () => {
       />
       <Tab.Screen 
         name="Favorites" 
-        component={Favorites}
+        component={FavoritesStackNavigator}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -236,7 +255,7 @@ const MainTabs = () => {
                   marginTop: 6,
                 }}
               >
-                Cart
+                Wallet
               </Text>
             </View>
           ),
@@ -250,12 +269,12 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 0 }}>
               <Image
-                source={require('../src/database/icons/person.png')}
+                source={require('../src/database/icons/user.png')}
                 resizeMode="contain"
                 style={{
-                  width: 34,
-                  height: 28,
-                  tintColor: focused ? (isDarkMode ? '#FFFFFF' : '#3C6EEF') : (isDarkMode ? '#AAAAAA' : '#748c94'),// Dynamic icon color
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? (isDarkMode ? '#FFFFFF' : '#3C6EEF') : (isDarkMode ? '#AAAAAA' : '#748c94'), // Dynamic icon color
                 }}
               />
               <Text
@@ -279,7 +298,6 @@ const MainTabs = () => {
 const App = () => {
   return (
     <ReduxProvider store={store}>
-      {/* Ensure ThemeProvider is wrapping the entire application */}
       <ThemeProvider>
         <NavigationContainer>
           <MainTabs />

@@ -1,16 +1,34 @@
+// FavoritesScreen.tsx
+
 import React from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, Button } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootState } from '../redux/store';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { removeItemFromFavorites } from '../redux/slices/favoritesSlice';
 
-const FavoritesScreen = () => {
+type RootStackParamList = {
+  Favorites: undefined;
+  PlayExhibitionScreen: undefined; // Add other routes if needed
+};
+
+type FavoritesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Favorites'>;
+
+interface Props {
+  navigation: FavoritesScreenNavigationProp;
+}
+const FavoritesScreen : React.FC<Props> = ({ navigation }) => {
   const favoriteItems = useSelector((state: RootState) => state.favorites.items);
   const dispatch = useDispatch();
 
   const handleRemoveFromFavorites = (id: string) => {
     dispatch(removeItemFromFavorites(id));
+  };
+
+  const handleNavigateToPlayExhibition = () => {
+    navigation.navigate('PlayExhibitionScreen');
   };
 
   const renderItem = ({ item }: { item: { id: string; name: string; price: number; image: string } }) => (
@@ -30,11 +48,16 @@ const FavoritesScreen = () => {
     <View style={styles.container}>
       <Text style={styles.favoritesText}>Favorites</Text>
       {favoriteItems.length > 0 ? (
-        <FlatList
-          data={favoriteItems}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        <>
+          <FlatList
+            data={favoriteItems}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+          <Button mode="contained" onPress={handleNavigateToPlayExhibition} style={styles.playButton}>
+            Play Exhibition
+          </Button>
+        </>
       ) : (
         <Text style={styles.emptyText}>No items in your favorites list</Text>
       )}
@@ -57,7 +80,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#565656',
-
   },
   itemContainer: {
     flexDirection: 'row',
@@ -95,5 +117,10 @@ const styles = StyleSheet.create({
     color: '#777',
     textAlign: 'center',
     marginTop: 20,
+  },
+  playButton: {
+    marginTop: 20,
+    alignSelf: 'center',
+    backgroundColor: '#77e68c', // Customize the color to match your theme
   },
 });
