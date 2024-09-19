@@ -29,7 +29,7 @@ const devices: Device[] = [
   { id: '1', name: 'LG L20233C', icon: require('../database/icons/television.png') },
   { id: '2', name: 'Sony TV - X950B', icon: require('../database/icons/television.png') },
   { id: '3', name: 'SMART - TV - 2039', icon: require('../database/icons/television.png') },
-  { id: '4', name: 'Play on this device', icon: require('../database/icons/smartphone.png') },
+  { id: '4', name: 'Andrews Android', icon: require('../database/icons/smartphone.png') },
 ];
 
 const PlayExhibitionScreen: React.FC<Props> = () => {
@@ -97,14 +97,14 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
         onClose={() => setModalVisible(false)}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
-        closeIcon={<Text style={{ color: '#fff', fontSize: 18 }}>Close</Text>}
-        confirmIcon={<Text style={{ color: '#000', fontSize: 16 }}>Yes</Text>}
-        cancelIcon={<Text style={{ color: '#000', fontSize: 16 }}>No</Text>}
+        closeIcon={<Text style={{ color: '#fff', fontSize: 12 }}>Close</Text>}
+        confirmIcon={<Text style={{ color: '#000', fontSize: 12, fontWeight: '600' }}>Yes</Text>}
+        cancelIcon={<Text style={{ color: '#000', fontSize: 12, fontWeight: '600'}}>No</Text>}
       >
         <ModalContent
           deviceName={devices.find((device) => device.id === selectedDevice)?.name || ''}
-          artworkName="Exhibition Name"
-          itemCount={5} // Replace with dynamic content if needed
+          artworkName="House of Dragons Inpirations Artworks"
+          itemCount={6} // Replace with dynamic content if needed
         />
       </CustomModal>
     </View>

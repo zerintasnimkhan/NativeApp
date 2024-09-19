@@ -62,11 +62,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    padding: 20, // Ensure padding is not clipping the content
+    minHeight: '20%',
   },
   modalContent: {
     width: 300,
     backgroundColor: '#1f1f1f',
-    borderRadius: 10,
+    borderRadius: 5,
     paddingVertical: 20,
     position: 'relative',
     justifyContent: 'space-between',
@@ -81,25 +83,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 5,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 30,
     paddingBottom: 20,
+    marginLeft: -15,
+    marginRight: -15,
+    marginTop: -8,
+    marginBottom: -20
   },
   yesButton: {
     backgroundColor: '#77e68c',
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 46,
+    paddingHorizontal: 57,
   },
   noButton: {
     backgroundColor: '#fff',
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 46,
+    paddingHorizontal: 57,
   },
 });
 

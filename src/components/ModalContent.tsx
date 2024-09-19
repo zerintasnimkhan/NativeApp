@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Separator from './separator';
 
 interface ModalContentProps {
   deviceName: string;
@@ -10,14 +11,19 @@ interface ModalContentProps {
 const ModalContent: React.FC<ModalContentProps> = ({ deviceName, artworkName, itemCount }) => {
   return (
     <View style={styles.contentWrapper}>
-       <View style={styles.iconContainer}>
+       {/* <View style={styles.iconContainer}>
       <Image source={require('../database/images/modalImage.png')} style={styles.icon} />
-      </View>
+      </View> */}
+
+<TouchableOpacity style={styles.iconContainer}>
+                <Image source={require('../database/icons/television.png')} style={styles.icon} />
+              </TouchableOpacity>
       <Text style={styles.titleText}>Are you sure you want to connect to device?</Text>
       <Text style={styles.subtitleText}>You will be playing exhibition on</Text>
       <Text style={styles.deviceNameText}>{deviceName}</Text>
 
       <View style={styles.divider} />
+      {/* <Separator/> */}
 
       <Text style={styles.artworkText}>{artworkName}</Text>
       <Text style={styles.itemCountText}>{itemCount} Items</Text>
@@ -30,18 +36,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    backgroundColor: '#333',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
-    color: '#000',
-    backgroundColor: '#000000',
-    marginTop: 30,
-    marginBottom: 30
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    // shadowRadius: 2,
+    elevation: 4,
+    marginBottom: 30,
+    marginTop: -20
   },
   icon: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    backgroundColor: '#000'
+    width: 40,
+    height: 40,
+    tintColor: '#FFFFFF',
+    // margin: 20,
+    backgroundColor: '#333'
   },
   titleText: {
     color: '#fff',
@@ -57,29 +71,31 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   deviceNameText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#aaa',
+    fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
   },
   divider: {
-    width: '100%',
-    height: 1,
-    backgroundColor: '#333',
-    marginVertical: 15,
+    width: '80%',           // Ensure it's wide enough for visibility
+    height: StyleSheet.hairlineWidth, // You can try this for a thin line or increase the height
+    backgroundColor: 'red', // Ensure the color contrasts with the background
+    marginVertical: 15,      // Add some space above and below the divider
+    alignSelf: 'center',  
+    marginBottom: 18   // Ensure it is centered horizontally
   },
   artworkText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
     marginBottom: 5,
   },
   itemCountText: {
     color: '#aaa',
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
 });
 
