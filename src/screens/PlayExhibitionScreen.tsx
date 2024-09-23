@@ -4,6 +4,7 @@ import { RadioButton } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack'; 
 import ModalContent from '../components/ModalContent';
 import CustomModal from '../components/ConfirmationModal';
+import DeleteModal from '../components/DeleteModal'; // Import the DeleteModal component
 
 // Define your navigation stack params
 type RootStackParamList = {
@@ -34,7 +35,8 @@ const devices: Device[] = [
 
 const PlayExhibitionScreen: React.FC<Props> = () => {
   const [selectedDevice, setSelectedDevice] = useState<string>('4'); // Default selection
-  const [isModalVisible, setModalVisible] = useState(false); // State to manage modal visibility
+  const [isPlayModalVisible, setPlayModalVisible] = useState(false); // State to manage play modal visibility
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false); // State to manage delete modal visibility
 
   const renderDeviceItem = ({ item }: { item: Device }) => (
     <View style={styles.deviceItem}>
@@ -52,16 +54,31 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
 
   // Function to handle "Play" button click
   const handlePlayPress = () => {
-    setModalVisible(true); // Show the modal when Play is pressed
+    setPlayModalVisible(true); // Show the play modal when Play is pressed
   };
 
-  const handleConfirm = () => {
-    console.log('Confirmed device:', selectedDevice);
-    setModalVisible(false); // Close the modal after confirmation
+  // Function to handle "Delete" button click
+  const handleDeletePress = () => {
+    setDeleteModalVisible(true); // Show the delete modal when Delete is pressed
   };
 
-  const handleCancel = () => {
-    setModalVisible(false); // Close the modal if cancelled
+  const handleConfirmPlay = () => {
+    console.log('Confirmed device for play:', selectedDevice);
+    setPlayModalVisible(false); // Close the modal after confirmation
+  };
+
+  const handleCancelPlay = () => {
+    setPlayModalVisible(false); // Close the modal if cancelled
+  };
+
+  const handleConfirmDelete = () => {
+    console.log('Exhibition deleted');
+    setDeleteModalVisible(false); // Close the modal after deletion
+    // Add further logic for deletion if needed
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteModalVisible(false); // Close the modal if cancelled
   };
 
   return (
@@ -91,22 +108,36 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
         <Text style={styles.playButtonText}>Play</Text>
       </TouchableOpacity>
 
-      {/* Custom Modal */}
+      {/* Delete Button */}
+      <TouchableOpacity style={styles.deleteButton} onPress={handleDeletePress}>
+        <Text style={styles.deleteButtonText}>Delete</Text>
+      </TouchableOpacity>
+
+      {/* Custom Play Modal */}
       <CustomModal
-        visible={isModalVisible}
-        onClose={() => setModalVisible(false)}
-        onConfirm={handleConfirm}
-        onCancel={handleCancel}
-        closeIcon={<Text style={{ color: '#fff', fontSize: 12 }}>Close</Text>}
+        visible={isPlayModalVisible}
+        onClose={() => setPlayModalVisible(false)}
+        onConfirm={handleConfirmPlay}
+        onCancel={handleCancelPlay}
+        closeIcon={<Text style={{ color: '#fff', fontSize: 12 }}>x</Text>}
         confirmIcon={<Text style={{ color: '#000', fontSize: 12, fontWeight: '600' }}>Yes</Text>}
         cancelIcon={<Text style={{ color: '#000', fontSize: 12, fontWeight: '600'}}>No</Text>}
       >
         <ModalContent
           deviceName={devices.find((device) => device.id === selectedDevice)?.name || ''}
-          artworkName="House of Dragons Inpirations Artworks"
+          artworkName="House of Dragons Inspirations Artworks"
           itemCount={6} // Replace with dynamic content if needed
         />
       </CustomModal>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteModal
+        visible={isDeleteModalVisible}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Delete Exhibition"
+        description="Are you sure you want to delete this exhibition?"
+      />
     </View>
   );
 };
@@ -171,6 +202,19 @@ const styles = StyleSheet.create({
   },
   playButtonText: {
     color: '#000',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  deleteButton: {
+    backgroundColor: '#e74c3c',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  deleteButtonText: {
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
