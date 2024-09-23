@@ -4,7 +4,9 @@ import { RadioButton } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack'; 
 import ModalContent from '../components/ModalContent';
 import CustomModal from '../components/ConfirmationModal';
-import DeleteModal from '../components/DeleteModal'; // Import the DeleteModal component
+import DeleteModal from '../components/DeleteModal'; 
+import CreateExhibitionModal from '../components/BottomSheet';
+
 
 // Define your navigation stack params
 type RootStackParamList = {
@@ -37,6 +39,11 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
   const [selectedDevice, setSelectedDevice] = useState<string>('4'); // Default selection
   const [isPlayModalVisible, setPlayModalVisible] = useState(false); // State to manage play modal visibility
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false); // State to manage delete modal visibility
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const renderDeviceItem = ({ item }: { item: Device }) => (
     <View style={styles.deviceItem}>
@@ -138,6 +145,14 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
         title="Delete Exhibition"
         description="Are you sure you want to delete this exhibition?"
       />
+
+       {/* Create Exhibition Button */}
+       <TouchableOpacity style={styles.createButton} onPress={toggleModal}>
+        <Text style={styles.createButtonText}>Create Exhibition</Text>
+      </TouchableOpacity>
+
+      {/* Reusable Create Exhibition Modal */}
+      <CreateExhibitionModal isVisible={modalVisible} onClose={toggleModal} />
     </View>
   );
 };
@@ -215,6 +230,19 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  createButton: {
+    backgroundColor: '#77e68c',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  createButtonText: {
+    color: '#000',
     fontSize: 18,
     fontWeight: 'bold',
   },
