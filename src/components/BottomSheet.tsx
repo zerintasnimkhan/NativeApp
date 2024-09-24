@@ -21,43 +21,64 @@ const CreateExhibitionModal: React.FC<CreateExhibitionModalProps> = ({ isVisible
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>×</Text>
           </TouchableOpacity>
-        </View>
+      </View>
 
         {/* Quick Exhibition Option */}
         <TouchableOpacity style={styles.option} onPress={() => setChecked('quick')}>
-          {/* <MaterialIcons name="schedule" size={24} color="white" style={styles.icon} /> */}
-          <View style={styles.container}>
-            <Text style={styles.optionText}>Create Quick Exhibition</Text>
-            <Text style={styles.subText}>
-              Your selected artworks will be played into your selected device.
-            </Text>
-          </View>
-          <RadioButton
-            value="quick"
-            status={checked === 'quick' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('quick')}
-            color="#77e68c"
-            uncheckedColor="#FFFFFF"
-          />
-        </TouchableOpacity>
+  <View style={styles.container}>
+    <View style={styles.iconContainer}>
+      <Image
+        source={require('../database/icons/play.png')}
+        style={styles.icon}
+      />
+    </View>
+    <View style={styles.textContainer}>
+      <Text style={styles.optionText}>Create Quick Exhibition</Text>
+      <Text style={styles.subText}>
+        Your selected artworks will be played into your selected device.
+      </Text>
+    </View>
+    <View style={styles.radiobuttonContainer}>
+    <RadioButton
+      value="quick"
+      status={checked === 'quick' ? 'checked' : 'unchecked'}
+      onPress={() => setChecked('quick')}
+      color="#77e68c"
+      uncheckedColor="#FFFFFF"
+    //   style={styles.radioButton} // Optional if you want to add more styling to the RadioButton
+    />
+    </View>
+  </View>
+</TouchableOpacity>
 
-        {/* Custom Exhibition Option */}
-        <TouchableOpacity style={styles.option} onPress={() => setChecked('custom')}>
-          {/* <MaterialIcons name="photo-library" size={24} color="white" style={styles.icon} /> */}
-          <View style={styles.container}>
-            <Text style={styles.optionText}>Create Custom Exhibition</Text>
-            <Text style={styles.subText}>
-              You will create a new exhibition with the selected artwork.
-            </Text>
-          </View>
-          <RadioButton
-            value="custom"
-            status={checked === 'custom' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('custom')}
-            color="#77e68c"
-            uncheckedColor="#FFFFFF"
-          />
-        </TouchableOpacity>
+
+    {/* Custom Exhibition Option */}
+ <TouchableOpacity style={styles.option} onPress={() => setChecked('quick')}>
+   <View style={styles.container}>
+    <View style={styles.iconContainer}>
+      <Image
+        source={require('../database/icons/image-gallery.png')}
+        style={styles.icon}
+      />
+    </View>
+    <View style={styles.textContainer}>
+      <Text style={styles.optionText}>Create Custom Exhibition</Text>
+      <Text style={styles.subText}>
+      You will create a new exhibition with the selected artwork.
+      </Text>
+    </View>
+    <View style={styles.radiobuttonContainer}>
+    <RadioButton
+      value="quick"
+      status={checked === 'quick' ? 'checked' : 'unchecked'}
+      onPress={() => setChecked('quick')}
+      color="#77e68c"
+      uncheckedColor="#FFFFFF"
+    //   style={styles.radioButton} // Optional if you want to add more styling to the RadioButton
+    />
+    </View>
+  </View>
+</TouchableOpacity>
 
         {/* Proceed Button */}
         <TouchableOpacity style={styles.proceedButton} onPress={onClose}>
@@ -84,6 +105,8 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 14,
+    marginLeft: -8
   },
   title: {
     color: '#fff',
@@ -94,13 +117,13 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    right: 16,
-    top: 2,
+    right: 10,
+    top: -16,
     
   },
   closeButtonText: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: 33,
   },
   option: {
     display: 'flex',
@@ -114,11 +137,19 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'row',
     marginLeft: 10,
     marginBottom: -14
   },
+  radiobuttonContainer: {
+    marginTop: 18
+  },
+  textContainer: {
+    flex: 1, // Let the text take the remaining space
+    marginRight: 10, // Space between text and RadioButton
+  },
   optionText: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: 'normal',
     color: '#FFFFFF',
   },
@@ -126,13 +157,26 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#C0C0C0',
     marginTop: 5,
-    marginRight: 20
+    marginRight: 20,
+    lineHeight: 22,
   },
   icon: {
-    marginRight: 10,
-    width: 20,
-    height: 20,
+    // marginRight: 10,
+    width: 26,
+    height: 26,
     tintColor: '#fff',
+  },
+  iconContainer: {
+    width: 55,
+    height: 55,
+    borderRadius: 28,
+    backgroundColor: '#2b2b2b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+    marginBottom: 24,
+    marginRight: 14,
+    marginLeft: -10
   },
   proceedButton: {
     marginTop: 40,
