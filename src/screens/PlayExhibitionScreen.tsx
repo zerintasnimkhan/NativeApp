@@ -6,7 +6,7 @@ import ModalContent from '../components/ModalContent';
 import CustomModal from '../components/ConfirmationModal';
 import DeleteModal from '../components/DeleteModal'; 
 import CreateExhibitionModal from '../components/BottomSheet';
-
+import BottomSheet from '../components/WaeTagsBottomSheet'; // Import the BottomSheet component
 
 // Define your navigation stack params
 type RootStackParamList = {
@@ -35,14 +35,32 @@ const devices: Device[] = [
   { id: '4', name: 'Andrews Android', icon: require('../database/icons/smartphone.png') },
 ];
 
+// Report options to display in the BottomSheet
+const reportItems = [
+  'Intellectual property infringement',
+  "It's spam",
+  'False Information',
+  "I don't like it",
+  'Hate speech or symbols',
+  'Scam or fraud',
+  'Nudity or sexual activity',
+  'Bullying or harassment',
+  'Violence or dangerous organisations',
+];
+
 const PlayExhibitionScreen: React.FC<Props> = () => {
   const [selectedDevice, setSelectedDevice] = useState<string>('4'); // Default selection
   const [isPlayModalVisible, setPlayModalVisible] = useState(false); // State to manage play modal visibility
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false); // State to manage delete modal visibility
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); // For Create Exhibition modal
+  const [isReportVisible, setReportVisible] = useState(false); // For BottomSheet visibility
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const toggleReportBottomSheet = () => {
+    setReportVisible(!isReportVisible);
   };
 
   const renderDeviceItem = ({ item }: { item: Device }) => (
@@ -120,6 +138,11 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
         <Text style={styles.deleteButtonText}>Delete</Text>
       </TouchableOpacity>
 
+      {/* Report Button */}
+      <TouchableOpacity style={styles.reportButton} onPress={toggleReportBottomSheet}>
+        <Text style={styles.reportButtonText}>Report</Text>
+      </TouchableOpacity>
+
       {/* Custom Play Modal */}
       <CustomModal
         visible={isPlayModalVisible}
@@ -153,6 +176,16 @@ const PlayExhibitionScreen: React.FC<Props> = () => {
 
       {/* Reusable Create Exhibition Modal */}
       <CreateExhibitionModal isVisible={modalVisible} onClose={toggleModal} />
+
+      {/* Report BottomSheet */}
+      <BottomSheet 
+        isVisible={isReportVisible}
+        onClose={toggleReportBottomSheet}
+        title="Report"
+        subtitle="Please select the reason you would like to report this content."
+        items={reportItems} onCancel={function (): void {
+          throw new Error('Function not implemented.');
+        } }      />
     </View>
   );
 };
@@ -226,23 +259,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 15,
   },
   deleteButtonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
-  createButton: {
-    backgroundColor: '#77e68c',
+  reportButton: {
+    backgroundColor: '#f39c12',
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 15,
+  },
+  reportButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  createButton: {
+    backgroundColor: '#3498db',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
   },
   createButtonText: {
-    color: '#000',
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },

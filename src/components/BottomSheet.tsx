@@ -21,7 +21,7 @@ const CreateExhibitionModal: React.FC<CreateExhibitionModalProps> = ({ isVisible
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>×</Text>
           </TouchableOpacity>
-      </View>
+        </View>
 
         {/* Quick Exhibition Option */}
         <TouchableOpacity style={styles.option} onPress={() => setChecked('quick')}>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1, // Let the text take the remaining space
-    marginRight: 10, // Space between text and RadioButton
+    marginRight: 10, // Space between text and 
   },
   optionText: {
     fontSize: 18,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     color: '#C0C0C0',
     marginTop: 5,
     marginRight: 20,
-    lineHeight: 22,
+    lineHeight: 22
   },
   icon: {
     // marginRight: 10,
