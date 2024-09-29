@@ -22,9 +22,12 @@ import AboutYouScreen from './screens/AboutYouScreen';
 import AddStoryScreen from './screens/AddStoryScreen';
 import PlayExhibitionScreen from './screens/PlayExhibitionScreen';
 import FavoritesScreen from './screens/Favorites';
+import WelcomeScreen from './screens/WelcomeScreen';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
+  Welcome: undefined;
+  Main: undefined;
   Home: undefined;
   CategoriesScreen: undefined;
   SearchMain: undefined;
@@ -295,12 +298,29 @@ const MainTabs = () => {
   );
 };
 
+
+const InitialStackNavigator = () => (
+  <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Screen
+      name="Welcome"
+      component={WelcomeScreen}
+      options={{ headerShown: false }} // Hide header for Welcome Screen
+    />
+    <Stack.Screen
+      name="Main"
+      component={MainTabs}
+      options={{ headerShown: false }} // Hide header for main tab navigation
+    />
+  </Stack.Navigator>
+);
+
+
 const App = () => {
   return (
     <ReduxProvider store={store}>
       <ThemeProvider>
         <NavigationContainer>
-          <MainTabs />
+        <InitialStackNavigator />
         </NavigationContainer>
       </ThemeProvider>
     </ReduxProvider>

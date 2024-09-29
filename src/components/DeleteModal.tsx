@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2b2b2b',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 24,
   },
   icon: {
     width: 40,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#aaa',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 26,
   },
   buttonContainer: {
     flexDirection: 'row',
