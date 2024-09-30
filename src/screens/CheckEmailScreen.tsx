@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 type RootStackParamList = {
   CheckEmailScreen: undefined;
-  LoginScreen: undefined;
+  SetPasswordScreen: undefined;
 };
 
 type CheckEmailScreenProps = {
@@ -36,11 +36,12 @@ const CheckEmailScreen: React.FC<CheckEmailScreenProps> = ({ navigation }) => {
       </View>
       <Text style={styles.title}>Check your email</Text>
       <Text style={styles.description}>
-        We've sent an email to andrew.collins@samplemail.com with a link to verify your email.
+        We've sent an email to 
       </Text>
+      <Text style={styles.description}>andrew.collins@samplemail.com with a link that you can tap to verify your email.</Text>
 
       {/* Resend link */}
-      <TouchableOpacity style={styles.resendButton}>
+      <TouchableOpacity style={styles.resendButton}  onPress={() => navigation.navigate('SetPasswordScreen')}>
         <Text style={styles.resendText}>Resend Link</Text>
       </TouchableOpacity>
     </View>
@@ -69,7 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 40,
-    marginTop: -280,
+    marginTop: 68
+    
   },
   activeStep: {
     width: 90,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     width: 60,
     marginLeft: -16,
     marginTop: -30,
-    // marginBottom: 20
+    marginBottom: 40
   },
   icon: {
     fontSize: 48,
@@ -111,21 +113,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     textAlign: 'left',
+    alignSelf: 'flex-start',
     color: '#fff',
     fontWeight: 'bold',
     marginBottom: 10,
   },
   description: {
     color: '#aaa',
-    textAlign: 'center',
-    marginBottom: 360,
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    fontSize: 15
+    // marginBottom: 360,
   },
   resendButton: {
     backgroundColor: '#fff',
     paddingVertical: 12,
     paddingHorizontal: 146,
     borderRadius: 5,
-    marginBottom: -320
+    marginTop: 340
+
   },
   resendText: {
     color: '#121212',
