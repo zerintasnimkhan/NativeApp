@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // Define the type for your navigation stack
 type RootStackParamList = {
-  Register: undefined;
+  SignUpScreen: undefined; // Updated to include SignUpScreen
   Login: undefined;
 };
 
@@ -18,24 +18,18 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       {/* Top Artwork Image */}
       <Image
-        source={require('../database/images/welcomeImg.png')}// Replace with your artwork image URL
+        source={require('../database/images/welcomeImg.png')} // Replace with your artwork image URL
         style={styles.artwork}
       />
-
-      {/* Logo Image */}
-      {/* <Image
-        source={{ uri: 'https://your-logo-url.com' }} // Replace with your logo URL
-        style={styles.logo}
-      /> */}
 
       {/* Welcome Text */}
       <Text style={styles.title}>Welcome to Behold</Text>
       <Text style={styles.subtitle}>
-        Start indulging into the world of beautiful artworks.
+        Start indulging in the world of beautiful artworks.
       </Text>
 
       {/* Get Started Button */}
-      <TouchableOpacity style={styles.getStartedButton} onPress={() => navigation.navigate('Register')}>
+      <TouchableOpacity style={styles.getStartedButton} onPress={() => navigation.navigate('SignUpScreen')}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
 
@@ -60,11 +54,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     position: 'absolute',
     top: 0,
-    marginBottom: 20
-  },
-  logo: {
-    width: 80,
-    height: 80,
+    marginBottom: 20,
   },
   title: {
     fontSize: 35,
@@ -74,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 520,
     textAlign: 'left',
     alignSelf: 'flex-start',
-    marginLeft: 30
+    marginLeft: 30,
   },
   subtitle: {
     fontSize: 19,
@@ -83,8 +73,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginBottom: 46,
     marginLeft: 30,
-    marginRight: 100
-    
+    marginRight: 100,
   },
   getStartedButton: {
     backgroundColor: '#00e676', // Green color similar to the one in the image
@@ -98,7 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 170,
     borderRadius: 10,
-    marginBottom: -20
+    marginBottom: -20,
   },
   buttonText: {
     color: '#000',

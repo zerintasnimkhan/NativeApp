@@ -23,10 +23,14 @@ import AddStoryScreen from './screens/AddStoryScreen';
 import PlayExhibitionScreen from './screens/PlayExhibitionScreen';
 import FavoritesScreen from './screens/Favorites';
 import WelcomeScreen from './screens/WelcomeScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import CheckEmailScreen from './screens/CheckEmailScreen';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
-  Welcome: undefined;
+  WelcomeScreen: undefined;
+  SignUpScreen: undefined;
+  CheckEmailScreen: undefined;
   Main: undefined;
   Home: undefined;
   CategoriesScreen: undefined;
@@ -300,11 +304,21 @@ const MainTabs = () => {
 
 
 const InitialStackNavigator = () => (
-  <Stack.Navigator initialRouteName="Welcome">
+  <Stack.Navigator initialRouteName="WelcomeScreen">
     <Stack.Screen
-      name="Welcome"
+      name="WelcomeScreen"
       component={WelcomeScreen}
       options={{ headerShown: false }} // Hide header for Welcome Screen
+    />
+    <Stack.Screen 
+      name="SignUpScreen" 
+      component={SignUpScreen} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="CheckEmailScreen" 
+      component={CheckEmailScreen} 
+      options={{ headerShown: false }} 
     />
     <Stack.Screen
       name="Main"
