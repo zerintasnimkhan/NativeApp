@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderColor: '#888',
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   input: {
     flex: 1,
@@ -152,14 +152,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#888',
     marginVertical: 20,
+    fontSize: 16
   },
   socialContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 40,
+    
   },
   socialButton: {
     marginHorizontal: 10,
+    backgroundColor: '#1C1C1C',
+    borderRadius: 100,
+    padding: 15,
   },
   backIcon: {
     height: 60,
@@ -169,8 +174,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     tintColor: '#fff',
   },
   nextButton: {
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',
-    marginTop: 320,
+    marginTop: 310,
     marginBottom: 20,
   },
   nextButtonText: {

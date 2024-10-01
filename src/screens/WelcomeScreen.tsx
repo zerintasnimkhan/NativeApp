@@ -67,32 +67,33 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   subtitle: {
-    fontSize: 19,
-    color: '#aaa',
+    fontSize: 16.5,
+    color: '#fff',
     textAlign: 'left',
     alignSelf: 'flex-start',
-    marginBottom: 46,
+    marginBottom: 80,
     marginLeft: 30,
     marginRight: 100,
+    lineHeight: 25
   },
   getStartedButton: {
-    backgroundColor: '#00e676', // Green color similar to the one in the image
-    paddingVertical: 16,
+    backgroundColor: '#82FC9A', // Green color similar to the one in the image
+    paddingVertical: 12,
     paddingHorizontal: 148,
     borderRadius: 10,
     marginBottom: 10,
   },
   loginButton: {
     backgroundColor: '#fff', // Dark button for Login
-    paddingVertical: 16,
+    paddingVertical: 12,
     paddingHorizontal: 170,
     borderRadius: 10,
     marginBottom: -20,
   },
   buttonText: {
     color: '#000',
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontWeight: '500',
+    fontSize: 14.5,
   },
 });
 

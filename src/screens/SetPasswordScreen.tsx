@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type RootStackParamList = {
   CheckEmailScreen: undefined;
   SetPasswordScreen: undefined;
+  ProfileSetupScreen: undefined;
 };
 
 type SetPasswordScreenNavigationProp = NativeStackNavigationProp<
@@ -26,7 +27,7 @@ const SetPasswordScreen: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       {/* Back Button */}
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Image source={require('../database/images/backarrow.png')} />
+        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon} />
       </TouchableOpacity>
 
       {/* Step Indicator */}
@@ -73,10 +74,7 @@ const SetPasswordScreen: React.FC<Props> = ({ navigation }) => {
       {/* Next Button */}
       <TouchableOpacity
         style={styles.nextButton}
-        onPress={() => {
-          // Handle Next action
-          console.log('Password Set!');
-        }}
+        onPress={() => navigation.navigate('ProfileSetupScreen')}
       >
         <Text style={styles.nextButtonText}>Next</Text>
       </TouchableOpacity>
@@ -98,20 +96,29 @@ const styles = StyleSheet.create({
     top: 40,
     left: 20,
   },
+  backIcon: {
+    height: 60,
+    width: 60,
+    marginLeft: -16,
+    marginTop: -20,
+    marginBottom: 40
+  },
   stepIndicator: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 40,
-    marginTop: 50,
+    marginTop: 70,
   },
   activeStep: {
-    width: 50,
+    width: 90,
+    borderRadius: 10,
     height: 4,
     backgroundColor: '#3C6EEF',
     marginHorizontal: 5,
   },
   inactiveStep: {
-    width: 50,
+    width: 90,
+    borderRadius: 10,
     height: 4,
     backgroundColor: '#888',
     marginHorizontal: 5,
@@ -120,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -129,11 +136,11 @@ const styles = StyleSheet.create({
     borderColor: '#888',
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 60,
     color: '#fff',
   },
   icon: {
@@ -142,15 +149,15 @@ const styles = StyleSheet.create({
     tintColor: '#888',
   },
   nextButton: {
-    backgroundColor: '#00FF88',
+    backgroundColor: '#82FC9A',
     paddingVertical: 12,
-    borderRadius: 8,
+    borderRadius: 5,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 400,
   },
   nextButtonText: {
     color: '#121212',
-    fontSize: 18,
+    fontSize: 14.5,
     fontWeight: 'bold',
   },
 });
