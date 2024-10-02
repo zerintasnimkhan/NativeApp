@@ -27,6 +27,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import CheckEmailScreen from './screens/CheckEmailScreen';
 import SetPasswordScreen from './screens/SetPasswordScreen';
 import ProfileSetupScreen from './screens/ProfileSetupScreen';
+import ArtworkSelectionScreen from './screens/SelectArtworkScreen';
 
 // Define your stack navigator parameter list types
 export type StackParamList = {
@@ -35,6 +36,7 @@ export type StackParamList = {
   CheckEmailScreen: undefined;
   SetPasswordScreen: undefined;
   ProfileSetupScreen: undefined;
+  ArtworkSelectionScreen: undefined;
   Main: undefined;
   Home: undefined;
   CategoriesScreen: undefined;
@@ -332,6 +334,11 @@ const InitialStackNavigator = () => (
     <Stack.Screen 
       name="ProfileSetupScreen" 
       component={ProfileSetupScreen} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen 
+      name="ArtworkSelectionScreen" 
+      component={ArtworkSelectionScreen} 
       options={{ headerShown: false }} 
     />
     <Stack.Screen
