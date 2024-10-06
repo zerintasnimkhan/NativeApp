@@ -71,6 +71,9 @@ const ArtistFollowScreen : React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
+       </TouchableOpacity>
       <Text style={styles.title}>
         You are almost done! Here are some of the artists you might be interested to follow
       </Text>
@@ -93,10 +96,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     padding: 20,
   },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+  },
+  backIcon: {
+    height: 60,
+    width: 60,
+    marginLeft: -16,
+    marginTop: -30,
+    marginBottom: 40
+  },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: '500',
     color: '#fff',
+    marginTop: 80,
     marginBottom: 20,
   },
   artistRow: {
@@ -134,8 +150,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   startButton: {
-    backgroundColor: '#1DBF73',
-    paddingVertical: 15,
+    backgroundColor: '#82FC9A',
+    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
@@ -144,7 +160,7 @@ const styles = StyleSheet.create({
   startButtonText: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
 });
 

@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 20,
-    left: 20,
+    top: 40,
+    left: 40,
   },
   progressBar: {
     flexDirection: 'row',

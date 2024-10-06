@@ -21,11 +21,14 @@ interface Props {
 const LoginCompleteScreen : React.FC<Props> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
+       </TouchableOpacity>
       <View style={styles.content}>
         {/* Circle with a check icon */}
         <View style={styles.iconWrapper}>
           <Image
-            source={{ uri: 'https://example.com/check-icon.png' }} // Placeholder for the check icon
+            source={require('../database/icons/double-check.png')} 
             style={styles.checkIcon}
           />
         </View>
@@ -50,7 +53,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000', // Dark background
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 10,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+  },
+  backIcon: {
+    height: 60,
+    width: 60,
+    marginLeft: -16,
+    marginTop: -30,
+    marginBottom: 10
   },
   content: {
     flex: 1,
@@ -58,13 +73,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconWrapper: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 170,
+    height: 170,
+    borderRadius: 90,
     backgroundColor: '#111', // Dark circle background
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
+    marginTop: -180,
+    marginBottom: 20,
   },
   checkIcon: {
     width: 50,
@@ -74,25 +90,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20,
+    marginBottom: 8,
   },
   description: {
     fontSize: 16,
     color: '#aaa',
     textAlign: 'center',
     paddingHorizontal: 20,
+    lineHeight: 26
   },
   doneButton: {
-    backgroundColor: '#1DBF73',
-    paddingVertical: 15,
+    backgroundColor: '#82FC9A',
+    paddingVertical: 12,
     alignItems: 'center',
     borderRadius: 5,
-    marginBottom: 20,
   },
   doneButtonText: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
 });
 

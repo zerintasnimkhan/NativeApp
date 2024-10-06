@@ -14,9 +14,9 @@ type CheckEmailScreenProps = {
 const CheckEmailScreen: React.FC<CheckEmailScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
-      </TouchableOpacity>
+       </TouchableOpacity>
 
       {/* Step indicator */}
       <View style={styles.stepIndicator}>

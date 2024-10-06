@@ -75,7 +75,7 @@ const ArtworkSelectionScreen: React.FC<Props> = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
-      </TouchableOpacity>
+       </TouchableOpacity>
       
       <View style={styles.progressBar}>
         <View style={styles.activeStep} />
@@ -111,23 +111,24 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 20,
+    top: 50,
     left: 20,
-    zIndex: 1,
   },
   backIcon: {
-    width: 30,
-    height: 30,
-    tintColor: '#fff',
+    height: 60,
+    width: 60,
+    marginLeft: -16,
+    marginTop: -30,
+    marginBottom: 40
   },
   progressBar: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 80,
     marginBottom: 30,
   },
   activeStep: {
-    width: 80,
+    width: 90,
     height: 4,
     backgroundColor: '#8397FC',
     marginHorizontal: 4,
@@ -135,8 +136,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 18,
-    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: '500',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
     marginBottom: 20,
   },
   grid: {
