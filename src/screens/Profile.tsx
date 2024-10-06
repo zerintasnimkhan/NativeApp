@@ -26,7 +26,6 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
     { id: '3', name: 'Arthur Gonzalez', image: 'https://img.freepik.com/free-photo/serious-man-teacher-with-confident-clever-look-has-beard-mustache-listens-pupil-s-answer-wears-pink-sweater-round-glasses_273609-16686.jpg',isFollowing: true },
     { id: '4', name: 'Maria Ward', image: 'https://img.freepik.com/free-photo/portrait-fair-haired-woman-with-warm-blue-eyes-dry-lips-healthy-skin-looking-directly-alluring-girl-with-beautiful-appearance-dressed-casually-posing_273609-7635.jpg', isFollowing: true },
     { id: '5', name: 'George Garrett', image: 'https://media.istockphoto.com/id/1025855432/photo/daylight-portrait-of-young-handsome-caucasian-man-isolated-on-grey-background-dressed-in.jpg?s=612x612&w=0&k=20&c=zvQW-kWUHtgY360LhcTi42yXqbtAzXEPU-jlSV3xAL8=', isFollowing: true },
-    // Add more users up to 10
     { id: '6', name: 'Tyler Sanders', image: 'https://img.freepik.com/free-photo/confident-good-looking-beautiful-woman-with-blonde-dyed-hair-dressed-casual-clothes-looking-seriously_176420-15186.jpg', isFollowing: true },
     { id: '7', name: 'Betty Pierce', image: 'https://st4.depositphotos.com/13193658/25036/i/450/depositphotos_250363326-stock-photo-smiling-attractive-woman-white-sweater.jpg', isFollowing: true },
     { id: '8', name: 'Linda West', image: 'https://plus.unsplash.com/premium_photo-1688572454849-4348982edf7d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D', isFollowing: true },
