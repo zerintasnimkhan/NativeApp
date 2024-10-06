@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
+
 const artworkData = [
   { id: '1', image: require('../database/images/image@2x-0.png') }, 
   { id: '2', image: require('../database/images/image@2x-1.png') }, 
@@ -35,6 +36,7 @@ type RootStackParamList = {
     SetPasswordScreen: undefined;
     ProfileSetupScreen: undefined;
     SelectArtworkScreen: undefined;
+    ArtistFollowScreen: undefined;
 };
 
 type SelectArtworkScreenNavigationProp = NativeStackNavigationProp<
@@ -71,8 +73,8 @@ const ArtworkSelectionScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => {}} style={styles.backButton}>
-        {/* <Image source={require('../assets/back-arrow.png')} style={styles.backIcon} /> */}
+       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
       </TouchableOpacity>
       
       <View style={styles.progressBar}>
@@ -93,7 +95,7 @@ const ArtworkSelectionScreen: React.FC<Props> = ({ navigation }) => {
         numColumns={3}
         contentContainerStyle={styles.grid}
       />
-       <TouchableOpacity style={styles.nextButton} >
+       <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('ArtistFollowScreen')}>
         <Text style={styles.nextButtonText}>Save</Text>
       </TouchableOpacity>
     </SafeAreaView>
