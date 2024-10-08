@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     width: 90,
     borderRadius: 10,
     height: 4,
-    backgroundColor: '#3C6EEF',
+    backgroundColor: '#8397FC',
     marginHorizontal: 5,
   },
   inactiveStep: {
@@ -130,7 +130,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 146,
     borderRadius: 5,
-    marginTop: 340
+    marginTop: 360,
+    marginBottom: -20
 
   },
   resendText: {

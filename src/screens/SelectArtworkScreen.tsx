@@ -10,20 +10,19 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-
 const artworkData = [
-  { id: '1', image: require('../database/images/image@2x-0.png') }, 
-  { id: '2', image: require('../database/images/image@2x-1.png') }, 
-  { id: '3', image: require('../database/images/image@2x-10.png') }, 
-  { id: '4', image: require('../database/images/image@2x-11.png') }, 
-  { id: '5', image: require('../database/images/image@2x-12.png') }, 
-  { id: '6', image: require('../database/images/image@2x-2.png') }, 
-  { id: '7', image: require('../database/images/image@2x-3.png') }, 
-  { id: '8', image: require('../database/images/image@2x-4.png') }, 
-  { id: '9', image: require('../database/images/image@2x-5.png') }, 
+  { id: '1', image: require('../database/images/image@2x-0.png') },
+  { id: '2', image: require('../database/images/image@2x-1.png') },
+  { id: '3', image: require('../database/images/image@2x-10.png') },
+  { id: '4', image: require('../database/images/image@2x-11.png') },
+  { id: '5', image: require('../database/images/image@2x-12.png') },
+  { id: '6', image: require('../database/images/image@2x-2.png') },
+  { id: '7', image: require('../database/images/image@2x-3.png') },
+  { id: '8', image: require('../database/images/image@2x-4.png') },
+  { id: '9', image: require('../database/images/image@2x-5.png') },
   { id: '10', image: require('../database/images/image@2x-6.png') },
-  { id: '11', image: require('../database/images/image@2x-7.png') }, 
-  { id: '12', image: require('../database/images/image@2x-8.png') }, 
+  { id: '11', image: require('../database/images/image@2x-7.png') },
+  { id: '12', image: require('../database/images/image@2x-8.png') },
   { id: '13', image: require('../database/images/image@2x-9.png') },
   { id: '14', image: require('../database/images/image@2x-10.png') },
   { id: '15', image: require('../database/images/image@2x-12.png') },
@@ -33,10 +32,10 @@ const artworkData = [
 ];
 
 type RootStackParamList = {
-    SetPasswordScreen: undefined;
-    ProfileSetupScreen: undefined;
-    SelectArtworkScreen: undefined;
-    ArtistFollowScreen: undefined;
+  SetPasswordScreen: undefined;
+  ProfileSetupScreen: undefined;
+  SelectArtworkScreen: undefined;
+  ArtistFollowScreen: undefined;
 };
 
 type SelectArtworkScreenNavigationProp = NativeStackNavigationProp<
@@ -73,10 +72,10 @@ const ArtworkSelectionScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon}/>
-       </TouchableOpacity>
-      
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Image source={require('../database/images/backarrow.png')} style={styles.backIcon} />
+      </TouchableOpacity>
+
       <View style={styles.progressBar}>
         <View style={styles.activeStep} />
         <View style={styles.activeStep} />
@@ -95,9 +94,25 @@ const ArtworkSelectionScreen: React.FC<Props> = ({ navigation }) => {
         numColumns={3}
         contentContainerStyle={styles.grid}
       />
-       <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('ArtistFollowScreen')}>
-        <Text style={styles.nextButtonText}>Save</Text>
-      </TouchableOpacity>
+
+<TouchableOpacity
+  style={[
+    styles.nextButton,
+    selectedArtworks.length > 0 ? styles.activeNextButton : styles.inactiveNextButton,
+  ]}
+  disabled={selectedArtworks.length === 0}
+  onPress={() => navigation.navigate('ArtistFollowScreen')}
+>
+  <Text
+    style={[
+      styles.nextButtonText,
+      selectedArtworks.length > 0 ? styles.activeNextButtonText : styles.inactiveNextButtonText,
+    ]}
+  >
+    Save
+  </Text>
+</TouchableOpacity>
+
     </SafeAreaView>
   );
 };
@@ -106,7 +121,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    paddingHorizontal: 20,
+    paddingHorizontal: 4,
     paddingTop: 20,
   },
   backButton: {
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     width: 60,
     marginLeft: -16,
     marginTop: -30,
-    marginBottom: 40
+    marginBottom: 40,
   },
   progressBar: {
     flexDirection: 'row',
@@ -128,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   activeStep: {
-    width: 90,
+    width: 95,
     height: 4,
     backgroundColor: '#8397FC',
     marginHorizontal: 4,
@@ -149,13 +164,14 @@ const styles = StyleSheet.create({
     width: '30%',
     margin: '1.5%',
     aspectRatio: 1, // Makes the artwork squares
-    borderRadius: 8,
+    borderRadius: 5,
     overflow: 'hidden',
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: 'transparent',
   },
   selectedArtwork: {
-    borderColor: '#8397FC',
+    borderColor: '#fff', // White border for selected artwork
+    borderWidth: 4
   },
   artworkImage: {
     width: '100%',
@@ -163,11 +179,22 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   nextButton: {
-    backgroundColor: '#82FC9A',
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',
-    // marginTop: 400,
+    marginTop: 20,
+  },
+  inactiveNextButton: {
+    backgroundColor: '#828282', // White when no artworks are selected
+  },
+  activeNextButton: {
+    backgroundColor: '#82FC9A', // Green when artworks are selected
+  },
+  activeNextButtonText: {
+    color: '#121212', // Black text when button is active
+  },
+  inactiveNextButtonText: {
+    color: '#ccc', // Gray or any color when button is inactive
   },
   nextButtonText: {
     color: '#121212',

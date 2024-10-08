@@ -50,6 +50,11 @@ const ArtistFollowScreen : React.FC<Props> = ({ navigation }) => {
     setArtistList(updatedList);
   };
 
+  // Separator component
+  const renderSeparator = () => (
+    <View style={styles.separator} />
+  );
+
   // Render each artist item
   const renderArtistItem = ({ item }: { item: any }) => (
     <View style={styles.artistRow}>
@@ -58,7 +63,7 @@ const ArtistFollowScreen : React.FC<Props> = ({ navigation }) => {
       <TouchableOpacity
         style={[
           styles.followButton,
-          { backgroundColor: item.followed ? '#fff' : '#1DBF73' },
+          { backgroundColor: item.followed ? '#fff' : '#000' },
         ]}
         onPress={() => handleFollowToggle(item.id)}
       >
@@ -81,6 +86,7 @@ const ArtistFollowScreen : React.FC<Props> = ({ navigation }) => {
         data={artistList}
         keyExtractor={(item) => item.id}
         renderItem={renderArtistItem}
+        ItemSeparatorComponent={renderSeparator}  // Adding separator between items
         showsVerticalScrollIndicator={false}
       />
       <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate('LoginCompleteScreen')}>
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: 20,
+    padding: 10,
   },
   backButton: {
     position: 'absolute',
@@ -113,19 +119,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#fff',
     marginTop: 80,
-    marginBottom: 20,
+    marginBottom: 40,
   },
   artistRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor: '#111',
-    padding: 15,
-    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
   },
   profileImage: {
-    width: 50,
-    height: 50,
+    width: 48,
+    height: 48,
     borderRadius: 25,
     marginRight: 15,
   },
@@ -135,19 +139,26 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   followButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
+    width: 100, // Set a fixed width for both buttons
+    paddingVertical: 12,
+    paddingHorizontal: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#1DBF73',
+    borderColor: '#525252',
+    alignItems: 'center', // Center the text inside the button
   },
   followText: {
-    color: '#000',
+    color: '#82FC9A',
     fontWeight: 'bold',
   },
   unfollowText: {
     color: '#000',
     fontWeight: 'bold',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#333', // or any color to match your design
+    marginVertical: 5,
   },
   startButton: {
     backgroundColor: '#82FC9A',
@@ -155,11 +166,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    marginTop: 20,
+    marginTop: 30,
+   marginBottom: -8
   },
   startButtonText: {
     color: '#000',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
   },
 });

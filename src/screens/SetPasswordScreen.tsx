@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     width: 90,
     borderRadius: 10,
     height: 4,
-    backgroundColor: '#3C6EEF',
+    backgroundColor: '#8397FC',
     marginHorizontal: 5,
   },
   inactiveStep: {
